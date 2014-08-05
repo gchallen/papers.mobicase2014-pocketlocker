@@ -1,0 +1,94 @@
+% 20 Apr 2014 : GWA : 1 page.
+
+\section{Introduction}
+\label{sec-introduction}
+
+As smartphones become ubiquitous, it is natural to expect to have access to
+all of your personal content from these powerful devices---to view all of
+your photos and videos; play any track from your music collection; and browse
+through all of your previously sent chats, texts, and emails. All of these
+use cases require smartphones to efficiently access far more data than they
+can store locally, and yet both existing cloud storage solutions~\cite{dropbox, googledrive}
+and recent research filesystem designs~\cite{mashtizadeh2013replication, peek2006ensemblue}
+require each client store a complete replica. As users assemble clouds of
+personal devices---including smartphones, tablets, laptops, and
+desktops---that collectively contain large amounts of storage, their storage
+capacity should not be bottlenecked by the most storage-constrained device.
+Particularly not if that device is their smartphone, which may have several
+orders of magnitude less storage than other devices. Given the cost of flash
+storage on mobile devices and its energy consumption, we do not anticipate
+mobile device storage capacity to increase at the same pace as other devices,
+e.g., network attached storage and laptops.
+
+%\XXXnote{Given the
+%expense and energy consumption of Flash storage used on mobile devices, we do
+%not anticipate mobile device storage capacity to catch up to other devices in
+%the near future.}
+
+To address this personal storage bottleneck we propose to allow users to
+apply the same techniques used to build reliable cloud storage to create
+\textit{personal storage clouds} using their existing personal devices. By
+combining available space on existing personal devices, personal storage
+clouds can achieve a capacity far greater than offered by free cloud storage
+tiers. By utilizing nearby personal devices, personal storage clouds can
+provide better performance than cloud storage. And by applying modern
+approaches to reliability and availability, personal storage clouds can cope
+with failures and disconnections inherent to personal devices.
+
+We present the design and implementation of PocketLocker, a system enabling
+scalable, reliable, and performant personal storage clouds (PSC). PocketLocker is
+designed to store rarely-changed files, such as photos, music, and videos,
+and to provide access to an entire personal storage cloud from any client
+device. PocketLocker exploits the locality of devices within the PSC
+to arrange rapid transfers over local-area networks when
+possible, and includes several energy-saving features to reduce battery
+drain on battery-powered mobile clients. While PocketLocker uses direct
+interaction between clients, it does not attempt to address the difficulties
+of building a true peer-to-peer distributed storage system. Instead, a cloud
+service called the \textit{orchestrator} is used to maintain a consistent
+namespace and ensure that backup and availability requirements are met.
+Clients apply local data caching policies that reflect their usage patterns
+and their interaction with other clients. PocketLocker simplifies
+locating data within the personal storage cloud by utilizing Reed-Solomon
+erasure coding~\cite{reed1960polynomial}, allowing clients to reconstruct files as
+long as they can acquire any set of mutually-redundant chunks.
+
+Our paper makes the following contributions. First, we examine one month of
+low-level file access traces from 100~smartphone users to better understand
+file access patterns on these popular mobile devices. We conclude that
+today's users are generating and accessing far more content than can be
+stored directly on their mobile device, making distributed file systems which
+require each client to store a complete replica unusable. However, a survey
+that we distributed to 47~people indicates that users do have available
+storage on other personal devices. These results motivate PocketLocker's
+design.
+
+Second, we present the design of PocketLocker and describe how it uses
+multiple personal devices to build scalable, performant, and energy-efficient
+personal storage clouds to store rarely-changed files such as music, videos,
+and photos. PocketLocker uses erasure coding to divide files into multiple
+chunks which are distributed across all the users' participating devices---which
+can include smartphones, tablets, laptops, desktops, and dedicated storage
+appliances. PocketLocker’s orchestrator, which runs as a cloud service,
+distributes chunks across the users’ personal devices to maintain file
+availability, maximize performance, and meet configurable backup
+requirements.
+
+Finally, we perform a detailed evaluation of PocketLocker that proceeds along
+two lines. First, we utilize our file access traces to examine the impact of
+several key PocketLocker design parameters and estimate the performance of
+file access on PocketLocker. Second, we measure the energy consumption and
+performance of an Android prototype as it accesses files under a variety of
+real-world conditions. Our results confirm that by locating files
+intelligently, PocketLocker can provide mobile users with energy-efficient
+low-latency access to far more content than their mobile device can store
+locally.
+
+Our paper is structured as follows. Section~\ref{sec-motivation} presents
+several results that motivate and inform PocketLocker's design, which we
+present in detail in Section~\ref{sec-design}.
+Section~\ref{sec-implementation} briefly describes the implementation of our
+current PocketLocker prototype for Android smartphones, which we evaluate in
+Section~\ref{sec-evaluation}. Section~\ref{sec-related} compares PocketLocker
+to similar systems before Section~\ref{sec-conclusion} discusses future work
+and concludes the paper.

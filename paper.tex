@@ -1,0 +1,82 @@
+\input{./include/start.tex}
+
+\ifdefined\isdraft
+  \usepackage{draftwatermark}
+  \SetWatermarkText{Under Submission}
+  \SetWatermarkScale{0.6}
+  \usepackage{fancyhdr}
+  \pagestyle{fancy}
+  \renewcommand{\headrulewidth}{0pt}
+  \lhead{}
+  \chead{Under Submission to MobiCASE'14. Do not distribute.}
+  \rhead{}
+\else
+\fi
+
+\begin{document}
+\mainmatter
+\def\thetitle{The PocketLocker Personal Cloud Storage System}
+\urldef{\authorsemail}\path|{ans25,carlnues,challen}@buffalo.edu,{miluzzo,chen}@research.att.com|
+
+\title{\thetitle}
+\titlerunning{\thetitle}
+
+\author{Anandatirtha Nandugudi\and Carl Nuessle\and Geoffrey Challen\and
+Emiliano Miluzzo\and Yih-Fahr Chen}
+\authorrunning{Nandugudi, Nuessle, Challen, Miluzzo, Chen}
+
+\institute{University at Buffalo\\
+338 Davis Hall, Buffalo, NY, 14260--2500\\
+\authorsemail
+}
+\toctitle{\thetitle}
+\tocauthor{Nandugudi, Nuessle, Challen, Miluzzo, Chen}
+\maketitle
+
+\hypersetup{
+  pdfinfo={
+    Title={\thetitle},
+    Author={Anandatirtha Nandugudi, Carl Nuessle, Geoffrey Challen, Emiliano
+    Miluzzo and Yih-Fahr Chen},
+  },
+}
+\ifdefined\isblue
+\begin{textblock}{1}(6.4,0)
+\noindent\href{http://blue.cse.buffalo.edu}{\includegraphics[width=0.6in]{./figures/logos/blue.jpg}}
+\end{textblock}
+\fi
+
+% 20 Apr 2014 : GWA : 12 pages total plus unlimited references.
+
+% 0.5 pages
+\input{abstract.tex}
+
+% 1 page
+\input{introduction.tex}
+
+% 1.5 pages
+\input{motivation.tex}
+
+% 4 pages
+\input{design.tex}
+
+% 0.5 page
+\input{implementation.tex}
+
+% 3 pages
+\input{evaluation.tex}
+
+% 1 page
+\input{related.tex}
+
+% 0.5 page
+\input{conclusion.tex}
+
+% 20 Apr 2014 ; GWA : References are extra.
+\clearpage
+% 20 Apr 2014 : GWA : Reeenable once we have a paper.
+\balance
+\bibliographystyle{abbrv}
+\bibliography{references}
+
+\end{document}
