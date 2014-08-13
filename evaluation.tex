@@ -3,6 +3,24 @@
 \section{Evaluation}
 \label{sec-evaluation}
 
+\begin{wrapfigure}{r}{0.6\textwidth}
+
+  \vspace*{-0.6in}
+
+  \includegraphics[width=0.6\textwidth]{./figures/pocketlocker/ConnectivityPercentageGraph.pdf}
+  
+  \vspace*{-0.1in}
+
+  \caption{\small \textbf{Connectivity During File Accesses.} Placing PSC
+    clients on each user's two most frequently-used Wifi networks could absorb a
+  large portion of their file access activity.}
+  
+  \vspace*{-0.2in}
+
+  \label{fig-simulation-connectivity}
+
+\end{wrapfigure}
+
 We evaluate PocketLocker in two ways. First, we return to the detailed file
 access traces we collected on \PhoneLab{} and analyze them to determine the
 impact of parameters important to PocketLocker's design. We also use them as
@@ -12,18 +30,6 @@ PocketLocker prototype engaging in the various types of file accesses
 described previously. Our results indicate how utilizing nearby clients can
 improve performance, and also how PocketLocker enables energy-efficient
 operation on battery-powered clients.
-
-\begin{figure}[t]
-
-  \includegraphics[width=\columnwidth]{./figures/pocketlocker/ConnectivityPercentageGraph.pdf}
-
-  \caption{\small \textbf{Connectivity During File Accesses.} Placing PSC
-    clients on each user's two most frequently-used Wifi networks could absorb a
-  large portion of their file access activity.}
-
-  \label{fig-simulation-connectivity}
-
-\end{figure}
 
 \subsection{Trace Analysis}
 \label{subsec-evaluation-traces}
@@ -36,31 +42,37 @@ analysis of the traces described in Section~\ref{sec-motivation}.
 Because \PhoneLab{} only provides visibility into participant smartphones, we
 have to infer where users would have other PSC clients nearby. To do so, we
 simulated the presence of PocketLocker PSC clients on the two Wifi networks
-that each user spent the most time connected to, which could represent home and work
-networks. We then divided file accesses into three categories: (1) ones that
-occur on the same LAN with a simulated PSC client, (2) those that do not occur on a
-PSC LAN but still occur while the user is connected to a high-speed and
-energy-efficient Wifi network, and (3) those that occur when the user is
-connected to a mobile data network\footnote{We found no file accesses that
-  occurred more than five minutes from log messages indicating the presence of
-  a mobile data network, a reflection of the always-connected nature of
-smartphones.}. Figure~\ref{fig-simulation-connectivity} shows the results; for 
-around half of the users, even without a local cache half of the file
-accesses could be served by two PSC clients placed at their most
-frequently-used Wifi networks. 
+that each user spent the most time connected to, which could represent home
+and work networks. We then divided file accesses into three categories: (1)
+ones that occur on the same LAN with a simulated PSC client, (2) those that
+do not occur on a PSC LAN but still occur while the user is connected to a
+high-speed and energy-efficient Wifi network, and (3) those that occur when
+the user is connected to a mobile data network\footnote{We found no file
+  accesses that occurred more than five minutes from log messages indicating
+  the presence of a mobile data network, a reflection of the always-connected
+nature of smartphones.}. Figure~\ref{fig-simulation-connectivity} shows the
+results; for around half of the users, even without a local cache half of the
+file accesses could be served by two clients placed at their most
+used Wifi networks. 
 
-\begin{figure}[t]
+\begin{wrapfigure}{r}{0.6\textwidth}
 
-  \includegraphics[width=\columnwidth]{./figures/pocketlocker/BatteryLengthDistributionGraph.pdf}
+  \vspace*{-0.3in}
+
+  \includegraphics[width=0.6\textwidth]{./figures/pocketlocker/BatteryLengthDistributionGraph.pdf}
+  
+  \vspace*{-0.1in}
 
   \caption{\small \textbf{Time Until Next Charge After File Creation.}
-    Separating the process of creating files into two steps allows PocketLocker
-    to reduce energy consumption on battery-powered client by performing
-  transfers during the next charging cycle.}
+    Separating the process of creating files into two steps allows
+  PocketLocker to reduce energy consumption by performing transfers during
+the next charging cycle.}
+  
+  \vspace*{-0.2in}
 
   \label{fig-simulation-battery}
 
-\end{figure}
+\end{wrapfigure}
 
 We were also interested in how many file creations could be offloaded to
 powered clients by delaying transfer until the user plugged their smartphone
@@ -74,30 +86,38 @@ on battery-powered clients.
 
 \begin{figure}[t]
 
-  \begin{subfigure}[t]{\columnwidth}
+  \begin{subfigure}[t]{0.5\columnwidth}
 
-    \includegraphics{./figures/pocketlocker/RandomSimulatorPerformanceGraph.pdf}
+    \includegraphics[width=\columnwidth]{./figures/pocketlocker/RandomSimulatorPerformanceGraph.pdf}
 
-  \end{subfigure}\\
-  \begin{subfigure}[t]{\columnwidth}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.5\columnwidth}
 
-    \includegraphics{./figures/pocketlocker/FIFOSimulatorPerformanceGraph.pdf}
-
-  \end{subfigure}\\
-  \begin{subfigure}[t]{\columnwidth}
-
-    \includegraphics{./figures/pocketlocker/LRUSimulatorPerformanceGraph.pdf}
+    \includegraphics[width=\columnwidth]{./figures/pocketlocker/FIFOSimulatorPerformanceGraph.pdf}
 
   \end{subfigure}\\
-  \begin{subfigure}[t]{\columnwidth}
+  \begin{subfigure}[t]{0.5\columnwidth}
 
-    \includegraphics{./figures/pocketlocker/AccessSimulatorPerformanceGraph.pdf}
+    \includegraphics[width=\columnwidth]{./figures/pocketlocker/LRUSimulatorPerformanceGraph.pdf}
+
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.5\columnwidth}
+
+    \includegraphics[width=\columnwidth]{./figures/pocketlocker/AccessSimulatorPerformanceGraph.pdf}
 
   \end{subfigure}
+
+  \vspace*{-0.1in}
 
   \caption{\small \textbf{Comparison of Reclamation Algorithms.}}
 
   \label{fig-simulation-policy}
+  
+  \vspace*{0.05in}
+  
+  \hrule
+  
+  \vspace*{-0.2in}
 
 \end{figure}
 

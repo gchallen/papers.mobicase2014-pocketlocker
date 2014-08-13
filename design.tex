@@ -3,6 +3,24 @@
 \section{Design}
 \label{sec-design}
 
+\begin{wrapfigure}{r}{0.5\textwidth}
+
+\vspace*{-0.4in}
+
+\includegraphics[width=0.5\textwidth]{./figures/create.pdf}
+
+\vspace*{-0.1in}
+
+\caption{\small \textbf{Creation.} This illustrates (1) path registration,
+performed immediately by a battery-powered client; and (2) erasure coding
+and chunk registration, performed later by a wall-powered client.}
+
+\label{fig-design-creation}
+
+\vspace*{-0.3in}
+
+\end{wrapfigure}
+
 A PocketLocker personal storage cloud (PSC) consists of a set of
 clients---including smartphones, tablets, laptops, desktops, and dedicated
 storage appliances---and a cloud service called the \textit{orchestrator}.
@@ -12,14 +30,14 @@ are the output of erasure coding, the number of distinct chunks required for
 reconstruction $k$ is less than $n$, and $k$ is stored in the namespace for
 each path.
 
-The orchestrator maintains the authoritative namespace by using a
+\sloppypar{The orchestrator maintains the authoritative namespace by using a
 monotonically-increasing counter to version all namespace modifications,
 including opens, renames, updates, and deletes. It also fixes the location of
 certain chunks to meet backup requirements and coordinates transfers between
 firewalled clients during open. While the orchestrator must track the
 location of some chunks to meet backup requirements, it does not maintain the
 location of all chunks. The orchestrator only requires a small amount of
-storage to facilitate transfers between firewalled PSC clients.
+storage to facilitate transfers between firewalled PSC clients.}
 
 Clients contribute storage to the PSC which PocketLocker divides into a
 \textit{file cache}, used to store reconstructed files, and a \textit{chunk
@@ -63,13 +81,19 @@ and whether the user cared if they were able to access their PSC when it was.
 
 \begin{wrapfigure}{r}{0.5\textwidth}
 
-\includegraphics[width=0.5\textwidth]{./figures/create.pdf}
+\vspace*{-0.4in}
 
-\caption{\small \textbf{Creation.} This illustrates (1) path registration,
-performed immediately by a battery-powered client; and (2) erasure coding
-and chunk registration, performed later by a wall-powered client.}
+\includegraphics[width=0.5\textwidth]{./figures/open.pdf}
 
-\label{fig-design-creation}
+\vspace*{-0.1in}
+
+\caption{\small \textbf{Open.} The figure illustrates a case where the
+request is satisfied by locating k=3 chunks:  one in the client's local
+chunk store, and two on PSC devices in the WAN.}
+
+\label{fig-design-open}
+
+\vspace*{-0.3in}
 
 \end{wrapfigure}
 
@@ -90,12 +114,11 @@ configured as part of the backup process, described later in
 Section~\ref{subsec-backup}.
 
 Modifications to existing PocketLocker files create a new version of a file.
-They require an additional round of erasure coding and distribution of new chunks.
-Because updating files is a heavyweight operation,
-PocketLocker is designed for files that are rarely or never changed, such as
-the media files in our traces of which were almost never altered. Renames
-simply alter the path associated with existing chunks, and deletes removes
-the path from the namespace.
+They require an additional round of erasure coding and distribution of new
+chunks. Because updating files is a heavyweight operation, PocketLocker is
+designed for files that are rarely or never changed, such as the media files
+in our traces. Renames simply alter the path associated with existing chunks,
+and deletes removes the path from the namespace.
 
 Both updates and deletions invalidate chunks which clients add to a
 reclamation list, but chunks are not removed until storage is needed. Because
@@ -103,22 +126,9 @@ clients do not coordinate chunk removal with the orchestrator, PocketLocker
 provides no guarantees about the existence of old version or deleted files.
 However, because the reclamation list is processed in FIFO order,
 modifications are generally removed first. Providing stronger semantics would
-require more coordination between clients and the orchestrator which we have
-chosen to avoid.
+require more client-orchestrator coordination which we have chosen to avoid.
 
 \subsection{Opening Files}
-
-\begin{figure}[t]
-
-\includegraphics[width=\columnwidth]{./figures/open.pdf}
-
-\caption{\small \textbf{Open.} The figure illustrates a case where the
-request is satisfied by locating k=3 chunks:  one in the client's local
-chunk store, and two on PSC devices in the WAN.}
-
-\label{fig-design-open}
-
-\end{figure}
 
 To open a file, the opener first verifies that the path is valid. If the file
 is already in the file cache, the open completes immediately. Otherwise, the
@@ -137,11 +147,10 @@ needs to its LAN PSC neighbors which will each report which requested chunks
 they store. PocketLocker clients discover neighbors using a simple UDP
 broadcast. Based on the replies the opener will acquire any needed chunks and
 add them to its chunk store. If it has $k$ chunks, then the open continues as
-in Step~\ref{itemize-local}.
-
-As an optimization, if an opener requests $k$ chunks for a path and a PSC
-neighbor has the reconstructed file in its file cache, it will offer to
-transfer the file instead of chunks. This optimization is also applied in
+in Step~\ref{itemize-local}. As an optimization, if an opener requests $k$
+chunks for a path and a PSC neighbor has the reconstructed file in its file
+cache, it will offer to transfer the file instead of chunks. This
+optimization is also applied in
 Steps~\ref{itemize-wan}~and~\ref{itemize-orchestrator}.
 %
 \label{itemize-lan}
@@ -192,10 +201,10 @@ cache. Normally the file creator will be the only PSC client with the file
 and required to transfer it to the opener. If the opener is wall-powered, it
 then performs the erasure coding and creation continues as described
 previously. We expect that in most cases when files are requested before they
-have been erasure coded, the user has moved the creator onto the same LAN
-with the opener---such as when a user tries to open a photo taken on their
-smartphone on their laptop. If so, the time and energy required to transfer
-the file to the opener should be minimal.
+have been erasure coded the user has moved the creator onto the same LAN with
+the opener---such as when a user opens a smartphone photo on their laptop. If
+so, the time and energy required to transfer the file to the opener should be
+minimal.
 
 \subsection{Performance}
 
@@ -235,7 +244,7 @@ removing one chunk of a large file can create more space than several chunks
 of smaller files, but removing chunks of more files increases the probability
 that a chunk will be required during open. We compare several algorithms for
 reclaiming storage in Section~\ref{subsec-evaluation-traces} evaluating their
-performance on our \PhoneLab{} file access traces.
+performance on our \PhoneLab{} traces.
 
 Interactive and non-interactive clients reclaim storage differently.
 Interactive clients keep statistics on their own chunk access patterns and
@@ -249,17 +258,23 @@ interact with.
 \subsection{Backup and Availability}
 \label{subsec-backup}
 
-\begin{figure}[t]
+\begin{wrapfigure}{r}{0.5\textwidth}
 
-\includegraphics[width=\columnwidth]{./figures/backup.pdf}
+\vspace*{-0.7in}
+
+\includegraphics[width=0.5\textwidth]{./figures/backup.pdf}
+
+\vspace*{-0.1in}
 
 \caption{\small \textbf{Backup.} A file is received and chunked by a powered
 device.  Under the direction of the Orchestrator, pinned chunks are
-distributed among different devices.}
+distributed to different devices.}
 
 \label{fig-design-backup}
 
-\end{figure}
+\vspace*{-0.1in}
+
+\end{wrapfigure}
 
 The orchestrator both meets backup requirements and ensures availability by
 \textit{pinning} chunks at clients to ensure that $k$ chunks will always be
