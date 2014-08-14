@@ -23,7 +23,7 @@ storage to facilitate transfers between firewalled PSC clients.}
 
 \begin{figure}[t]
 
-  \begin{subfigure}[t]{0.5\textwidth}
+  \begin{subfigure}[t]{0.48\textwidth}
 
     \includegraphics[width=\textwidth]{./figures/open.pdf}
 
@@ -32,8 +32,8 @@ storage to facilitate transfers between firewalled PSC clients.}
     local chunk store, and two on PSC devices on the WAN.}
 
     \label{fig-design-open}
-  \end{subfigure}%
-  \begin{subfigure}[t]{0.5\textwidth}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
 
     \includegraphics[width=\textwidth]{./figures/create.pdf}
 
@@ -43,7 +43,11 @@ storage to facilitate transfers between firewalled PSC clients.}
 
     \label{fig-design-creation}
   \end{subfigure}
-  \caption{}
+  \vspace*{0.05in}
+
+  \hrule
+
+  \vspace*{-0.2in}
 \end{figure}
 
 
@@ -221,6 +225,24 @@ chunk store. Because erasure decoding is more efficient than erasure
 encoding, clients first remove files in their file cache such that they have
 enough chunks in their chunk store to reconstruct.
 
+\begin{wrapfigure}{r}{0.5\textwidth}
+
+\vspace*{-0.3in}
+
+\includegraphics[width=0.5\textwidth]{./figures/backup.pdf}
+
+\vspace*{-0.1in}
+
+\caption{\small \textbf{Backup.} A file is received and chunked by a powered
+device.  Under the direction of the Orchestrator, pinned chunks are
+distributed to different devices.}
+
+\label{fig-design-backup}
+
+\vspace*{-0.2in}
+
+\end{wrapfigure}
+
 At this point removing either files or chunks allows the client to make
 latency tradeoffs between different files. For example, keeping one chunk of
 many files reduces the access latency of all but provides low-latency access
@@ -248,24 +270,6 @@ interact with.
 \subsection{Backup and Availability}
 \label{subsec-backup}
 
-%\begin{wrapfigure}{r}{0.5\textwidth}
-%
-%\vspace*{-0.7in}
-%
-%\includegraphics[width=0.5\textwidth]{./figures/backup.pdf}
-%
-%\vspace*{-0.1in}
-%
-%\caption{\small \textbf{Backup.} A file is received and chunked by a powered
-%device.  Under the direction of the Orchestrator, pinned chunks are
-%distributed to different devices.}
-%
-%\label{fig-design-backup}
-%
-%\vspace*{-0.1in}
-%
-%\end{wrapfigure}
-
 The orchestrator both meets backup requirements and ensures availability by
 \textit{pinning} chunks at clients to ensure that $k$ chunks will always be
 available---as long as the client configured as available are reachable---and
@@ -275,12 +279,11 @@ files older than a certain time interval (the backup window) if up to a
 certain number of clients fail (the backup threshold).
 
 Figure~\ref{fig-design-backup} shows the most common steps in the backup
-process.  A powered device receives and chunks a file originally created by
-a mobile device (3.1).  All chunks are initially pinned by default.  Next,
-the Orchestrator orders PC 2 to request chunk 433 from PC 1 (3.2), and PC 1
-to unpin chunk 433 after the chunk has been copied to PC 2 (3.3).  The clients
-then carry out these instructions:  PC 1 fetches and pins chunk 433 from PC 2,
-and PC 1 unpins chunk 433 (3.4). 
+process.  A powered device receives and chunks a file originally created by a
+mobile device (3.1).  All chunks are initially pinned by default.  Next, the
+Orchestrator orders PC 2 to request chunk 433 from PC 1 (3.2), and PC 1 to
+unpin chunk 433 after the chunk has been copied to PC 2 (3.3).  Next, PC 1
+fetches and pins chunk 433 from PC 2, and PC 1 unpins chunk 433 (3.4). 
 
 Backup and availability requirements can reduce the usable size of the PSC
 depending on the distribution of storage contributed by clients and how they
@@ -357,7 +360,7 @@ requirements and availability requirements in separate passes. If the size of
 the PSC is constrained by the backup requirement, the availability pass
 proceeds first in order to avoid reducing capacity on clients needed for
 backup. If the size of the PSC is constrained by the availability
-requirement, the order of the two passes is reversed.
+requirement, the order is reversed.
 
 In each pass, for each file the orchestrator begins with the client with the
 most capacity and begins pinning chunks until the requirement is met. The
@@ -393,5 +396,4 @@ as photo thumbnails, PocketLocker allows metadata files up to a size limit to
 be associated with files stored in the PSC. Metadata files are stored in a
 separate part of each client's storage and retrieved during the initial chunk
 requests that follow file creation. Unlike chunks, however, metadata files
-are not reclaimed, since we assume that the overhead of storing them will be
-limited.
+are not reclaimed, since we assume their storage overhead is limited.
