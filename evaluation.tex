@@ -39,6 +39,22 @@ accesses. In the best case, other PSC clients are located on the same LAN. To
 determine whether nearby clients can assist with file accesses, we performed further
 analysis of the traces described in Section~\ref{sec-motivation}.
 
+Because \PhoneLab{} only provides visibility into participant smartphones, we
+have to infer where users would have other PSC clients nearby. To do so, we
+simulated the presence of PocketLocker PSC clients on the two Wifi networks
+that each user spent the most time connected to, which could represent home
+and work networks. We then divided file accesses into three categories: (1)
+ones that occur on the same LAN with a simulated PSC client, (2) those that
+do not occur on a PSC LAN but still occur while the user is connected to a
+high-speed and energy-efficient Wifi network, and (3) those that occur when
+the user is connected to a mobile data network\footnote{We found no file
+  accesses that occurred more than five minutes from log messages indicating
+  the presence of a mobile data network, a reflection of the always-connected
+nature of smartphones.}. Figure~\ref{fig-simulation-connectivity} shows the
+results; for around half of the users, even without a local cache half of the
+file accesses could be served by two clients placed at their most
+used Wifi networks. 
+
 \begin{wrapfigure}{r}{0.6\textwidth}
 
   \vspace*{-0.3in}
@@ -58,21 +74,6 @@ the next charging cycle.}
 
 \end{wrapfigure}
 
-Because \PhoneLab{} only provides visibility into participant smartphones, we
-have to infer where users would have other PSC clients nearby. To do so, we
-simulated the presence of PocketLocker PSC clients on the two Wifi networks
-that each user spent the most time connected to, which could represent home
-and work networks. We then divided file accesses into three categories: (1)
-ones that occur on the same LAN with a simulated PSC client, (2) those that
-do not occur on a PSC LAN but still occur while the user is connected to a
-high-speed and energy-efficient Wifi network, and (3) those that occur when
-the user is connected to a mobile data network\footnote{We found no file
-  accesses that occurred more than five minutes from log messages indicating
-  the presence of a mobile data network, a reflection of the always-connected
-nature of smartphones.}. Figure~\ref{fig-simulation-connectivity} shows the
-results; for around half of the users, even without a local cache half of the
-file accesses could be served by two clients placed at their most
-used Wifi networks. 
 
 We were also interested in how many file creations could be offloaded to
 powered clients by delaying transfer until the user plugged their smartphone
@@ -164,7 +165,7 @@ networks types. Secondly, we measured the energy consumption to access files.
 In our experiments we chose $k=2$ as the number of chunks required for
 reconstruction. We used Samsung Galaxy S4 and Nexus 5 smartphones as
 interactive devices, and utilized Android VMs running PocketLocker as fixed
-devices within the same subnet.
+nearby devices.
 
 \begin{figure*}[t]
   \centering
@@ -189,43 +190,40 @@ devices within the same subnet.
 \end{figure*}
 
 
-\subsubsection{File Access}
-\label{sec-fileaccess}
-Figure~\ref{fig-evaluation-download} illustrates the time required to download
-files of different sizes with clients having to download $k$ chunks to
-reconstruct the file when connected to different networks.
-The \textit{On Device} scenario denotes the time required only to reconstruct the
-chunks locally to reconstruct the original. This is the best scenario 
-as there is no download of chunks involved.
-In \textit{LAN Wifi}, we have a fixed device present on the same LAN as the 
-interactive
-device. The device downloads both chunks from the fixed device and is the
-fastest compared to any other connection type. \textit{WAN Wifi} has fixed devices that are publicly accessible over the
-Internet to interactive devices. WAN Wifi is analogues to downloading files from
-the cloud today. \textit{Arranged Wifi} presents the scenario where the
-fixed devices are not publicly accessible and data transfers are done via a
-relay. Here, the access times to open a file when the chunks are
-downloaded on the LAN Wifi are almost 50\% faster when compared to WAN Wifi
-scenario. This result is encouraging, as we envision most chunk
-transfers happening in the LAN Wifi mode. 
+\subsubsection{File access:\space} \label{sec-fileaccess}
+Figure~\ref{fig-evaluation-download} illustrates the time required to
+download files of different sizes with clients having to download $k$ chunks
+to reconstruct the file when connected to different networks. The \textit{On
+Device} scenario denotes the time required only to reconstruct the chunks
+locally to reconstruct the original. This is the best scenario as there is no
+download of chunks involved. In \textit{LAN Wifi}, we have a fixed device
+present on the same LAN as the interactive device. The device downloads both
+chunks from the fixed device and is the fastest compared to any other
+connection type. \textit{WAN Wifi} has fixed devices that are publicly
+accessible over the Internet to interactive devices. WAN Wifi is analogues to
+downloading files from the cloud today. \textit{Arranged Wifi} presents the
+scenario where the fixed devices are not publicly accessible and data
+transfers are done via a relay. Here, the access times to open a file when
+the chunks are downloaded on the LAN Wifi are almost 50\% faster when
+compared to WAN Wifi scenario. This result is encouraging, as we envision
+most chunk transfers happening over LAN Wifi.
 
-\subsubsection{Energy Consumption}
-We used the Monsoon power monitor~\cite{monsoon} to measure the energy consumption for file
-access time for the scenarios described in Section~\ref{sec-fileaccess}.
+\subsubsection{Energy Consumption:\space} We used the Monsoon power
+monitor~\cite{monsoon} to measure the energy consumption for file access time
+for the scenarios described in Section~\ref{sec-fileaccess}.
 Figure~\ref{fig-evaluation-energy} illustrates the energy consumption on the
-interactive device. As expected, data transfers over the cellular network 
-consumes the most amount of
-energy. We also noticed that the energy consumed for the WAN Wifi was lesser
-when compared to LAN Wifi. We believe this occurred because
-the smartphone was connected to an open access point for WAN transfers whereas
-the interactive device was connected to an access point with WPA security for LAN
-Wifi. Figure~\ref{fig-evaluation-energysavings} compares the energy consumption
-of file access when downloading two chunks with the energy required to access
-the file by downloading one chunk. The energy consumption of PocketLocker when
-accessing the file by downloading one chunk is less than the consumption to access
-the file by downloading both chunks. This is a positive result for
-PocketLocker as it stores only some of the chunks required to reconstruct the 
-file instead of all chunks under storage pressure.
+interactive device. As expected, data transfers over the cellular network
+consumes the most amount of energy. We also noticed that the energy consumed
+for the WAN Wifi was lesser when compared to LAN Wifi. We believe this
+occurred because the smartphone was connected to an open access point for WAN
+transfers whereas the interactive device was connected to an access point
+with WPA security for LAN Wifi. Figure~\ref{fig-evaluation-energysavings}
+compares the energy consumption of file access when downloading two chunks
+with the energy required to access the file by downloading one chunk. The
+energy consumption of PocketLocker when accessing the file by downloading one
+chunk is less than the consumption to access the file by downloading both
+chunks. This is a positive result for PocketLocker as it stores only some of
+the required chunks instead of all chunks under storage pressure.
 
 
 \begin{figure*}[t]
