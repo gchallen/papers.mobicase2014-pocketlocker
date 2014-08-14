@@ -3,24 +3,6 @@
 \section{Design}
 \label{sec-design}
 
-\begin{wrapfigure}{r}{0.5\textwidth}
-
-\vspace*{-0.4in}
-
-\includegraphics[width=0.5\textwidth]{./figures/create.pdf}
-
-\vspace*{-0.1in}
-
-\caption{\small \textbf{Creation.} This illustrates (1) path registration,
-performed immediately by a battery-powered client; and (2) erasure coding
-and chunk registration, performed later by a wall-powered client.}
-
-\label{fig-design-creation}
-
-\vspace*{-0.3in}
-
-\end{wrapfigure}
-
 A PocketLocker personal storage cloud (PSC) consists of a set of
 clients---including smartphones, tablets, laptops, desktops, and dedicated
 storage appliances---and a cloud service called the \textit{orchestrator}.
@@ -38,6 +20,32 @@ firewalled clients during open. While the orchestrator must track the
 location of some chunks to meet backup requirements, it does not maintain the
 location of all chunks. The orchestrator only requires a small amount of
 storage to facilitate transfers between firewalled PSC clients.}
+
+\begin{figure}[t]
+
+  \begin{subfigure}[t]{0.5\textwidth}
+
+    \includegraphics[width=\textwidth]{./figures/open.pdf}
+
+    \caption{\small \textbf{Open.} The figure illustrates a case where the
+      request is satisfied by locating $k = 3$ chunks: one in the client's
+    local chunk store, and two on PSC devices on the WAN.}
+
+    \label{fig-design-open}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.5\textwidth}
+
+    \includegraphics[width=\textwidth]{./figures/create.pdf}
+
+    \caption{\small \textbf{Creation.} This illustrates (1) path registration,
+      performed immediately by a battery-powered client; and (2) erasure coding
+    and chunk registration, performed later by a wall-powered client.}
+
+    \label{fig-design-creation}
+  \end{subfigure}
+  \caption{}
+\end{figure}
+
 
 Clients contribute storage to the PSC which PocketLocker divides into a
 \textit{file cache}, used to store reconstructed files, and a \textit{chunk
@@ -78,24 +86,6 @@ not be used for availability depending on whether it was regularly shut off
 and whether the user cared if they were able to access their PSC when it was.
 
 \subsection{Creating, Modifying, and Deleting Files}
-
-\begin{wrapfigure}{r}{0.5\textwidth}
-
-\vspace*{-0.4in}
-
-\includegraphics[width=0.5\textwidth]{./figures/open.pdf}
-
-\vspace*{-0.1in}
-
-\caption{\small \textbf{Open.} The figure illustrates a case where the
-request is satisfied by locating k=3 chunks:  one in the client's local
-chunk store, and two on PSC devices in the WAN.}
-
-\label{fig-design-open}
-
-\vspace*{-0.3in}
-
-\end{wrapfigure}
 
 To reduce energy usage on battery-powered clients, PocketLocker separates
 creation into two steps which can be performed on different clients: (1) path
@@ -258,23 +248,23 @@ interact with.
 \subsection{Backup and Availability}
 \label{subsec-backup}
 
-\begin{wrapfigure}{r}{0.5\textwidth}
-
-\vspace*{-0.7in}
-
-\includegraphics[width=0.5\textwidth]{./figures/backup.pdf}
-
-\vspace*{-0.1in}
-
-\caption{\small \textbf{Backup.} A file is received and chunked by a powered
-device.  Under the direction of the Orchestrator, pinned chunks are
-distributed to different devices.}
-
-\label{fig-design-backup}
-
-\vspace*{-0.1in}
-
-\end{wrapfigure}
+%\begin{wrapfigure}{r}{0.5\textwidth}
+%
+%\vspace*{-0.7in}
+%
+%\includegraphics[width=0.5\textwidth]{./figures/backup.pdf}
+%
+%\vspace*{-0.1in}
+%
+%\caption{\small \textbf{Backup.} A file is received and chunked by a powered
+%device.  Under the direction of the Orchestrator, pinned chunks are
+%distributed to different devices.}
+%
+%\label{fig-design-backup}
+%
+%\vspace*{-0.1in}
+%
+%\end{wrapfigure}
 
 The orchestrator both meets backup requirements and ensures availability by
 \textit{pinning} chunks at clients to ensure that $k$ chunks will always be
