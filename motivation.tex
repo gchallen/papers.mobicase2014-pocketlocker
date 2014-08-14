@@ -6,18 +6,9 @@
 To better understand storage usage on smartphones and the potential to expand
 capacity by creating personal storage clouds, we performed several
 measurement studies. We were interested in answering the following questions:
-
-\begin{enumerate}
-
-\item How much storage do users have available on their smartphones?
-
-\item How frequently are media files created, modified, and accessed?
-
-\item How is available storage distributed across multiple personal devices?
-
-\end{enumerate}
-
-Next we discuss our findings and how they influence PocketLocker's design.
+How much storage do users have available on their smartphones? How frequently
+are media files created, modified, and accessed? And how is available storage
+distributed across multiple personal devices?
 
 \subsection{Rate of Smartphone Storage Decline}
 
@@ -77,13 +68,32 @@ opened. Our changes were distributed as a platform over-the-air update which
 consent through a separate app. We collected one month of data from December,
 2013, from 100~users.
 
-We filtered the dataset by extension to only include media files\footnote{We
-marked these files as media: \texttt{flv}, \texttt{mp4},
-\texttt{3gp}, \texttt{wmv}, \texttt{avi}, \texttt{mov}, \texttt{mp(e)g},
-\texttt{aac}, \texttt{jp(e)g}, \texttt{png},
-\texttt{gif}, \texttt{pdf}, \texttt{bmp}, \texttt{m4a}, \texttt{mp3},
-\texttt{m4v}, \texttt{3g2}, \texttt{asf}, \texttt{asx}, \texttt{swp},
-\texttt{swf}, and \texttt{tif}.}, which still left \num{1780617} opens of
+\begin{wrapfigure}{r}{0.6\textwidth}
+
+\vspace*{-0.45in}
+
+\includegraphics[width=0.6\textwidth]{./figures/pocketlocker/OperationPercentageGraph.pdf}
+
+\vspace*{-0.1in}
+
+\caption{\small \textbf{Media files are rarely modified.} Most file
+operations are accesses.}
+
+\label{fig-motivation-modification}
+
+\vspace*{-0.3in}
+
+\end{wrapfigure}
+
+We filtered the dataset by extension to only include media files
+%\footnote{We
+%marked these files as media: \texttt{flv}, \texttt{mp4},
+%\texttt{3gp}, \texttt{wmv}, \texttt{avi}, \texttt{mov}, \texttt{mp(e)g},
+%\texttt{aac}, \texttt{jp(e)g}, \texttt{png},
+%\texttt{gif}, \texttt{pdf}, \texttt{bmp}, \texttt{m4a}, \texttt{mp3},
+%\texttt{m4v}, \texttt{3g2}, \texttt{asf}, \texttt{asx}, \texttt{swp},
+%\texttt{swf}, and \texttt{tif}.}
+which still left \num{1780617} opens of
 \num{147756} distinct files by 100~users during the month.
 Figure~\ref{fig-motivation-totals} shows CDFs of the total number and size of
 the files opened by each \PhoneLab{} user during one month, demonstrating the
@@ -131,23 +141,6 @@ devices.}
 
 \end{table*}
 
-\begin{wrapfigure}{r}{0.6\textwidth}
-
-\vspace*{-0.45in}
-
-\includegraphics[width=0.6\textwidth]{./figures/pocketlocker/OperationPercentageGraph.pdf}
-
-\vspace*{-0.1in}
-
-\caption{\small \textbf{Media files are rarely modified.} Most file
-operations are accesses.}
-
-\label{fig-motivation-modification}
-
-\vspace*{-0.3in}
-
-\end{wrapfigure}
-
 Finally, to investigate the potential to utilize other nearby personal
 devices as part of a personal storage cloud, we distributed an IRB-approved
 survey to undergraduates at our university. For each device they owned,
@@ -159,3 +152,4 @@ other devices, such as laptops and desktops, available to them at multiple
 locations, while the free storage available on their smartphones was one
 order-of-magnitude smaller. By utilizing storage on other personal devices,
 PocketLocker can address the mobile storage bottleneck.
+
