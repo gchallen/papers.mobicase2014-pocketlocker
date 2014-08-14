@@ -11,8 +11,7 @@ measurement studies. We were interested in answering the following questions:
 
 \item How much storage do users have available on their smartphones?
 
-\item How frequently are media files created, modified, and accessed on
-smartphones?
+\item How frequently are media files created, modified, and accessed?
 
 \item How is available storage distributed across multiple personal devices?
 
@@ -30,11 +29,7 @@ Nexus smartphones and received subsidized service in return for willingness
 to participate in experiments. \PhoneLab{} provides access to a
 representative group of smartphone users balanced between genders and drawn
 from a wide variety of age brackets, making our results representative of the
-broader smartphone user community. Table~\ref{table-demographics} shows a
-demographic breakdown of the testbed based on a survey completed by 249 of
-the 288 \PhoneLab{} users.
-
-\input{./figures/participant-table.tex}
+broader smartphone user community.
 
 We distributed a simple experiment that periodically logged the storage
 available on each smartphone which 105~\PhoneLab{} joined for eight months,
@@ -55,38 +50,37 @@ device.
 
 \begin{wrapfigure}{r}{0.6\textwidth}
 
-\vspace*{-0.5in}
+\vspace*{-0.4in}
 
 \includegraphics[width=0.6\textwidth]{./figures/pocketlocker/FileSizeDistributionGraph.pdf}
 
 \vspace*{-0.1in}
 
 \caption{\small \textbf{File Sizes.} Per-user distributions are shown for all
-media files accessed by \PhoneLab{} users during the experiment. Most files
+media files accessed by users during the experiment. Most files
 are between 10~KB and 1~MB, but some are up to 100~MB.}
 
 \label{fig-motivation-totals}
 
-\vspace*{-0.2in}
+\vspace*{-0.3in}
 
 \end{wrapfigure}
 
 To obtain a more detailed picture of file access patterns for the media files
-that we expect users to want to access on many devices---pictures, movies,
-and music---we distributed a second IRB-approved experiment on \PhoneLab{} to
-collect more detailed file access patterns. By instrumenting the
-\texttt{bionic} C library used by Android applications, we were able to log
-every file open performed on all participating devices. We also logged the
-file size each time a file was opened. Our changes were distributed as a
-platform over-the-air update which \PhoneLab{} participants downloaded in
-November, 2013. To indicate consent, participants were also required to
-download and run a separate app. We collected one month of data from
-December, 2013, from 100~users.
+that we expect users to want to access on many devices we distributed a
+second IRB-approved experiment on \PhoneLab{} to collect more detailed file
+access patterns. By instrumenting the \texttt{bionic} C library used by
+Android applications, we were able to log every file open performed on all
+participating devices. We also logged the file size each time a file was
+opened. Our changes were distributed as a platform over-the-air update which
+\PhoneLab{} participants downloaded in November, 2013. Participants indicated
+consent through a separate app. We collected one month of data from December,
+2013, from 100~users.
 
 We filtered the dataset by extension to only include media files\footnote{We
-marked files with the follow extensions as media: \texttt{flv}, \texttt{mp4},
-\texttt{3gp}, \texttt{wmv}, \texttt{avi}, \texttt{mov}, \texttt{mpg},
-\texttt{mpeg}, \texttt{aac}, \texttt{jpg}, \texttt{jpeg}, \texttt{png},
+marked these files as media: \texttt{flv}, \texttt{mp4},
+\texttt{3gp}, \texttt{wmv}, \texttt{avi}, \texttt{mov}, \texttt{mp(e)g},
+\texttt{aac}, \texttt{jp(e)g}, \texttt{png},
 \texttt{gif}, \texttt{pdf}, \texttt{bmp}, \texttt{m4a}, \texttt{mp3},
 \texttt{m4v}, \texttt{3g2}, \texttt{asf}, \texttt{asx}, \texttt{swp},
 \texttt{swf}, and \texttt{tif}.}, which still left \num{1780617} opens of
@@ -95,6 +89,16 @@ Figure~\ref{fig-motivation-totals} shows CDFs of the total number and size of
 the files opened by each \PhoneLab{} user during one month, demonstrating the
 smartphone users access a large amount of media content from their mobile
 device.
+
+We marked \num{151904} media files as created if they were empty when opened,
+and only \num{11612} files as modified by comparing their sizes reported by
+successive open calls. This limited us to files that were opened multiple
+times during the trace, but we were still able to determine modifications for
+89\% of the file accesses we observed.
+Figure~\ref{fig-motivation-modification} shows modifications rates for
+photos, video, and audio files, demonstrating that these files are rarely
+modified on mobile devices. PocketLocker incorporates this assumption into
+its design.
 
 \begin{wrapfigure}{r}{0.6\textwidth}
 
@@ -109,19 +113,10 @@ operations are accesses.}
 
 \label{fig-motivation-modification}
 
-\vspace*{-0.2in}
+\vspace*{-0.7in}
 
 \end{wrapfigure}
 
-We marked \num{151904} media files as created if they were empty when opened,
-and only \num{11612} files as modified by comparing their sizes reported by
-successive open calls. This limited us to files that were opened multiple
-times during the trace, but we were still able to determine modifications for
-89\% of the file accesses we observed.
-Figure~\ref{fig-motivation-modification} shows modifications rates for
-photos, video, and audio files, demonstrating that these files are rarely
-modified on mobile devices. PocketLocker incorporates this assumption into
-its design.
 
 \subsection{Available Storage Distribution}
 
@@ -157,6 +152,5 @@ home. Table~\ref{table-storagesurvey} shows results collected from 47
 volunteers. Results indicate that users have large storage capacity from
 other devices, such as laptops and desktops, available to them at multiple
 locations, while the free storage available on their smartphones was one
-order-of-magnitude smaller than the storage available on their other devices.
-By utilizing storage on other personal devices, PocketLocker can address the
-mobile storage bottleneck.
+order-of-magnitude smaller. By utilizing storage on other personal devices,
+PocketLocker can address the mobile storage bottleneck.
