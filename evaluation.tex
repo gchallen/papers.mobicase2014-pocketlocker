@@ -55,26 +55,6 @@ results; for around half of the users, even without a local cache half of the
 file accesses could be served by two clients placed at their most
 used Wifi networks. 
 
-\begin{wrapfigure}{r}{0.6\textwidth}
-
-  \vspace*{-0.3in}
-
-  \includegraphics[width=0.6\textwidth]{./figures/pocketlocker/BatteryLengthDistributionGraph.pdf}
-  
-  \vspace*{-0.1in}
-
-  \caption{\small \textbf{Time Until Next Charge After File Creation.}
-    Separating the process of creating files into two steps allows
-  PocketLocker to reduce energy consumption by performing transfers during
-the next charging cycle.}
-  
-  \vspace*{-0.2in}
-
-  \label{fig-simulation-battery}
-
-\end{wrapfigure}
-
-
 We were also interested in how many file creations could be offloaded to
 powered clients by delaying transfer until the user plugged their smartphone
 in to charge. Figure~\ref{fig-simulation-battery} shows per-user
@@ -121,6 +101,27 @@ on battery-powered clients.
   \vspace*{-0.2in}
 
 \end{figure}
+
+
+
+\begin{wrapfigure}{r}{0.6\textwidth}
+
+  \vspace*{-0.3in}
+
+  \includegraphics[width=0.6\textwidth]{./figures/pocketlocker/BatteryLengthDistributionGraph.pdf}
+  
+  \vspace*{-0.1in}
+
+  \caption{\small \textbf{Time Until Next Charge After File Creation.}
+    Separating the process of creating files into two steps allows
+  PocketLocker to reduce energy consumption by performing transfers during
+the next charging cycle.}
+  
+  \vspace*{-0.2in}
+
+  \label{fig-simulation-battery}
+
+\end{wrapfigure}
 
 Finally, we built a simple trace-based simulator to experiment with different
 policies for managing the mobile client chunk store. We configured each PSC
