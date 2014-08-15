@@ -24,15 +24,14 @@ the same local network. The second, the HTTP service, facilitates the
 transfer of newly created files and chunks among the user's PSC devices as
 per the chunk placement scheme.
 
-PocketLocker exposes its APIs both to the orchestrator, to receive local
-cache maintenance directions, and to local client applications, to provide
-access to user files. PocketLocker clients interact with the PocketLocker
-service via the \textit{binder} driver framework in Android. The binder
-framework facilitates thread safe  inter process communication between
-applications in Android. The orchestrator was implemented using the Tornado
-and Flask web frameworks. The orchestrator listens to status updates by the
-user's PSC devices and tracks and maintains the cache information at each of
-the devices in the user's PSC using an \textit{SQLite} database. To
-efficiently push information to user's PSC device, the orchestrator uses the
+PocketLocker exposes its APIs both to the orchestrator, to receive local cache
+maintenance directions, and to local client applications, to provide access to
+user files. PocketLocker clients interact with the PocketLocker service via the
+\textit{binder} driver framework in Android. The binder facilitates thread safe
+inter process communication in Android. The orchestrator was implemented using
+the Tornado and Flask web frameworks. The orchestrator listens to status
+updates by the user's PSC devices and tracks and maintains the cache
+information at each of the devices in the user's PSC using an \textit{SQLite}
+database. To push information to user's PSC device, the orchestrator uses the
 Google Cloud Messaging (GCM) framework to communicate information about new
 file creation and chunk placement with the user's PocketLocker devices.

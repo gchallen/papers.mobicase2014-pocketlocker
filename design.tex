@@ -363,12 +363,11 @@ backup. If the size of the PSC is constrained by the availability
 requirement, the order is reversed.
 
 In each pass, for each file the orchestrator begins with the client with the
-most capacity and begins pinning chunks until the requirement is met. The
-backup pass stripes chunks across backup clients to meet the backup
-requirement, while the availability pass stacks chunks onto available devices
-to meet the availability requirement. The algorithm attempts to avoid chunk
-transfers when possible by considering what chunks each client already has
-pinned or available in their chunk store.
+most capacity and pins chunks until the requirement is met. The backup pass
+stripes chunks across backup clients to meet the backup requirement, while the
+availability pass stacks chunks onto available devices to meet the availability
+requirement. The algorithm avoids transfers when possible by considering what
+chunks are already pinned or available in each client's store.
 
 When clients receive a list of pinned chunks from the orchestrator, they
 retrieve any chunks they are missing using the chunk request process
@@ -379,15 +378,14 @@ time the backup algorithm runs, many of these chunks will be unpinned.
 
 \subsection{Offline Operation}
 
-PocketLocker assumes clients are connected most of the time, but can support
-periods of disconnected operation. Disconnected clients can access any files
-in their file store or that they can reconstruct using chunks in their local
-chunk store. Any changes to the namespace, such as creations, are cached.
-When the client reconnects, it downloads any namespace updates from the
-orchestrator and identifies any conflicts which the user is required to
-resolve locally. Because it is designed to store media files, PocketLocker
-does not attempt to merge conflicting creations or modifications. Instead,
-users are asked to choose between updates or rename the file.
+PocketLocker assumes clients are generally connected, but can supporti periods
+of disconnection. Disconnected clients can access any files in their file store
+or that they can reconstruct using chunks in their local chunk store. Any
+changes to the namespace, such as creations, are cached.  When the client
+reconnects, it downloads namespace updates from the orchestrator and identifies
+any conflicts. Because it is designed to store media files, PocketLocker does
+not attempt to merge conflicting versions. Instead, it asks users to choose
+between updates or to rename the file.
 
 \subsection{File Metadata}
 
