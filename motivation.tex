@@ -12,6 +12,23 @@ distributed across multiple personal devices?
 
 \subsection{Rate of Smartphone Storage Decline}
 
+\begin{figure}[t]
+
+%\vspace*{-0.4in}
+
+\includegraphics{./figures/pocketlocker/FileSizeDistributionGraph.pdf}
+
+%\vspace*{-0.1in}
+
+\caption{\small \textbf{File Sizes.} Per-user distributions are shown for all
+media files accessed by users during the experiment. Most files
+are between 10~KB and 1~MB, but some are up to 100~MB.}
+
+\label{fig-motivation-totals}
+
+%\vspace*{-0.3in}
+
+\end{figure}
 To determine how rapidly users are creating content on their mobile devices,
 we ran an IRB-approved experiment on \PhoneLab{}, a public smartphone testbed
 located at the University at Buffalo~\cite{nandugudi2013phonelab}.
@@ -39,24 +56,6 @@ device.
 
 \subsection{Media Access Patterns}
 
-\begin{wrapfigure}{r}{0.6\textwidth}
-
-\vspace*{-0.4in}
-
-\includegraphics[width=0.6\textwidth]{./figures/pocketlocker/FileSizeDistributionGraph.pdf}
-
-\vspace*{-0.1in}
-
-\caption{\small \textbf{File Sizes.} Per-user distributions are shown for all
-media files accessed by users during the experiment. Most files
-are between 10~KB and 1~MB, but some are up to 100~MB.}
-
-\label{fig-motivation-totals}
-
-\vspace*{-0.3in}
-
-\end{wrapfigure}
-
 To obtain a more detailed picture of file access patterns for the media files
 that we expect users to want to access on many devices we distributed a
 second IRB-approved experiment on \PhoneLab{} to collect more detailed file
@@ -68,22 +67,16 @@ opened. Our changes were distributed as a platform over-the-air update which
 consent through a separate app. We collected one month of data from December,
 2013, from 100~users.
 
-\begin{wrapfigure}{r}{0.6\textwidth}
+\begin{figure}[t]
 
-\vspace*{-0.45in}
-
-\includegraphics[width=0.6\textwidth]{./figures/pocketlocker/OperationPercentageGraph.pdf}
-
-\vspace*{-0.1in}
+\includegraphics{./figures/pocketlocker/OperationPercentageGraph.pdf}
 
 \caption{\small \textbf{Media files are rarely modified.} Most file
 operations are accesses.}
 
 \label{fig-motivation-modification}
 
-\vspace*{-0.3in}
-
-\end{wrapfigure}
+\end{figure}
 
 We filtered the dataset by extension to only include media files
 %\footnote{We
@@ -112,9 +105,9 @@ its design.
 
 \subsection{Available Storage Distribution}
 
-\begin{table*}[t]
+\begin{table}[t]
 {\small
-\begin{tabularx}{\textwidth}{Xccc}
+\begin{tabularx}{\columnwidth}{Xccc}
 
 \textbf{Location} & \textbf{Min~(GB)} & \textbf{Mean~(GB)} &
 \textbf{Max~(GB)} \\ \toprule
@@ -125,21 +118,14 @@ Total & 15 & 415 & 3806 \\
 
 \end{tabularx}
 }
-\vspace*{-0.1in}
 \caption{\small \textbf{Storage space available at different locations.}
 Results from a survey of 47 people. Users have an order-of-magnitude less
 space available on mobile devices compared with their other personal
 devices.}
 
 \label{table-storagesurvey}
-  
-\vspace*{0.05in}
-
 \hrule
-
-\vspace*{-0.2in}
-
-\end{table*}
+\end{table}
 
 Finally, to investigate the potential to utilize other nearby personal
 devices as part of a personal storage cloud, we distributed an IRB-approved

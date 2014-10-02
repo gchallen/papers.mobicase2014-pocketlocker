@@ -3,23 +3,17 @@
 \section{Evaluation}
 \label{sec-evaluation}
 
-\begin{wrapfigure}{r}{0.6\textwidth}
-
-  \vspace*{-0.6in}
-
-  \includegraphics[width=0.6\textwidth]{./figures/pocketlocker/ConnectivityPercentageGraph.pdf}
+\begin{figure}[t]
+  \includegraphics{./figures/pocketlocker/BatteryLengthDistributionGraph.pdf}
   
-  \vspace*{-0.1in}
-
-  \caption{\small \textbf{Connectivity During File Accesses.} Placing PSC
-    clients on each user's two most frequently-used Wifi networks could absorb a
-  large portion of their file access activity.}
+  \caption{\small \textbf{Time Until Next Charge After File Creation.}
+    Separating the process of creating files into two steps allows
+  PocketLocker to reduce energy consumption by performing transfers during
+the next charging cycle.}
   
-  \vspace*{-0.2in}
+  \label{fig-simulation-battery}
 
-  \label{fig-simulation-connectivity}
-
-\end{wrapfigure}
+\end{figure}
 
 We evaluate PocketLocker in two ways. First, we analyze the the file access
 traces we collected on \PhoneLab{} to determine the impact of parameters
@@ -33,6 +27,41 @@ clients.
 
 \subsection{Trace Analysis}
 \label{subsec-evaluation-traces}
+
+\begin{figure}[t]
+  
+  \includegraphics{./figures/energysavings.pdf}
+  
+  \caption{\small \textbf{PocketLocker energy savings.} The figure
+    illustrates the savings in energy when an interactive device downloads
+  one chunk compared to downloading two chunks to access the file.}
+  
+  \label{fig-evaluation-energysavings}
+
+\end{figure}
+
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics{./figures/downloadtimes.pdf}
+  
+  \vspace*{-0.1in}
+
+  \caption{\small \textbf{PocketLocker file access times.} Figure
+    illustrates the
+    times required to access files of various sizes by PSC in different
+    types of
+  connectivity.}
+
+  \label{fig-evaluation-download}
+  
+  \vspace*{0.05in}
+
+  \hrule
+
+  \vspace*{-0.2in}
+
+\end{figure*}
 
 PocketLocker relies on nearby clients to improve performance of file
 accesses. In the best case, other PSC clients are located on the same LAN. To
@@ -65,63 +94,6 @@ file transfer required during creation for a portion of the user's backup
 window, PocketLocker can enable energy-neutral transfers and reduce overhead
 on battery-powered clients.
 
-\begin{figure}[t]
-
-  \begin{subfigure}[t]{0.5\columnwidth}
-
-    \includegraphics[width=\columnwidth]{./figures/pocketlocker/RandomSimulatorPerformanceGraph.pdf}
-
-  \end{subfigure}%
-  \begin{subfigure}[t]{0.5\columnwidth}
-
-    \includegraphics[width=\columnwidth]{./figures/pocketlocker/FIFOSimulatorPerformanceGraph.pdf}
-
-  \end{subfigure}\\
-  \begin{subfigure}[t]{0.5\columnwidth}
-
-    \includegraphics[width=\columnwidth]{./figures/pocketlocker/LRUSimulatorPerformanceGraph.pdf}
-
-  \end{subfigure}%
-  \begin{subfigure}[t]{0.5\columnwidth}
-
-    \includegraphics[width=\columnwidth]{./figures/pocketlocker/AccessSimulatorPerformanceGraph.pdf}
-
-  \end{subfigure}
-
-  \vspace*{-0.1in}
-
-  \caption{\small \textbf{Comparison of Reclamation Algorithms.}}
-
-  \label{fig-simulation-policy}
-  
-  \vspace*{0.05in}
-  
-  \hrule
-  
-  \vspace*{-0.2in}
-
-\end{figure}
-
-
-
-\begin{wrapfigure}{r}{0.6\textwidth}
-
-  \vspace*{-0.3in}
-
-  \includegraphics[width=0.6\textwidth]{./figures/pocketlocker/BatteryLengthDistributionGraph.pdf}
-  
-  \vspace*{-0.1in}
-
-  \caption{\small \textbf{Time Until Next Charge After File Creation.}
-    Separating the process of creating files into two steps allows
-  PocketLocker to reduce energy consumption by performing transfers during
-the next charging cycle.}
-  
-  \vspace*{-0.2in}
-
-  \label{fig-simulation-battery}
-
-\end{wrapfigure}
 
 Finally, we built a simple trace-based simulator to experiment with different
 policies for managing the mobile client chunk store. We configured each PSC
@@ -141,24 +113,6 @@ each users file access patterns.
 
 \subsection{Prototype Performance Evaluation}
 
-\begin{wrapfigure}{r}{0.6\textwidth}
-  
-  \vspace*{-0.4in}
-
-  \includegraphics[width=0.6\textwidth]{./figures/energysavings.pdf}
-  
-  \vspace*{-0.1in}
-
-  \caption{\small \textbf{PocketLocker energy savings.} The figure
-    illustrates the savings in energy when an interactive device downloads
-  one chunk compared to downloading two chunks to access the file.}
-  
-  \label{fig-evaluation-energysavings}
-  
-  \vspace*{-0.2in}
-
-\end{wrapfigure}
-
 We evaluated the prototype of the implementation described in
 Section~\ref{sec-implementation} in two ways. First, we measured the time
 required to access files of various sizes with devices connected to different
@@ -167,29 +121,6 @@ In our experiments we chose $k=2$ as the number of chunks required for
 reconstruction. We used Samsung Galaxy S4 and Nexus 5 smartphones as
 interactive devices, and utilized Android VMs running PocketLocker as fixed
 nearby devices.
-
-\begin{figure*}[t]
-  \centering
-  \includegraphics[width=0.8\textwidth]{./figures/downloadtimes.pdf}
-  
-  \vspace*{-0.1in}
-
-  \caption{\small \textbf{PocketLocker file access times.} Figure
-    illustrates the
-    times required to access files of various sizes by PSC in different
-    types of
-  connectivity.}
-
-  \label{fig-evaluation-download}
-  
-  \vspace*{0.05in}
-
-  \hrule
-
-  \vspace*{-0.2in}
-
-\end{figure*}
-
 
 \subsubsection{File access:\space} \label{sec-fileaccess}
 Figure~\ref{fig-evaluation-download} illustrates the time required to
@@ -225,25 +156,3 @@ energy consumption of PocketLocker when accessing the file by downloading one
 chunk is less than the consumption to access the file by downloading both
 chunks. This is a positive result for PocketLocker as it stores only some of
 the required chunks instead of all chunks under storage pressure.
-
-
-\begin{figure*}[t]
-  \centering
-  \includegraphics[width=0.8\textwidth]{./figures/energyconsumption.pdf}
-  
-  \vspace*{-0.1in}
-
-  \caption{\small \textbf{PocketLocker energy consumption.}Figure illustrates the energy
-  consumption on interactive device to access files of different sizes from
-fixed devices in various types of network.}
-
-  \label{fig-evaluation-energy}
-  
-  \vspace*{0.05in}
-
-  \hrule
-
-  \vspace*{-0.2in}
-
-\end{figure*}
-

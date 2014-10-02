@@ -80,6 +80,17 @@ clients:
 
 \end{enumerate}
 
+\begin{figure}[t]
+
+\includegraphics{./figures/backup.pdf}
+
+\caption{\small \textbf{Backup.} A file is received and chunked by a powered
+device.  Under the direction of the Orchestrator, pinned chunks are
+distributed to different devices.}
+
+\label{fig-design-backup}
+
+\end{figure}
 PocketLocker provides example sets of configuration options for common types
 of devices. A NAS appliance would be used for backup and availability,
 non-interactive and wall-powered. A laptop would be used for backup but not
@@ -225,23 +236,6 @@ chunk store. Because erasure decoding is more efficient than erasure
 encoding, clients first remove files in their file cache such that they have
 enough chunks in their chunk store to reconstruct.
 
-\begin{wrapfigure}{r}{0.5\textwidth}
-
-\vspace*{-0.3in}
-
-\includegraphics[width=0.5\textwidth]{./figures/backup.pdf}
-
-\vspace*{-0.1in}
-
-\caption{\small \textbf{Backup.} A file is received and chunked by a powered
-device.  Under the direction of the Orchestrator, pinned chunks are
-distributed to different devices.}
-
-\label{fig-design-backup}
-
-\vspace*{-0.2in}
-
-\end{wrapfigure}
 
 At this point removing either files or chunks allows the client to make
 latency tradeoffs between different files. For example, keeping one chunk of
@@ -349,6 +343,17 @@ caching between $1$ and $k$ chunks of the file in their chunk store. However,
 due to PocketLocker's focus on supporting battery-powered clients, we set $k
 = 2$ to minimize the energy overhead of erasure decoding.
 
+\begin{figure}[t]
+
+  \includegraphics{./figures/pocketlocker/ConnectivityPercentageGraph.pdf}
+
+  \caption{\small \textbf{Connectivity During File Accesses.} Placing PSC
+    clients on each user's two most frequently-used Wifi networks could absorb a
+  large portion of their file access activity.}
+
+  \label{fig-simulation-connectivity}
+
+\end{figure}
 \subsection{Chunk Pinning Algorithm}
 \label{sec-design-algorithm}
 
@@ -375,6 +380,34 @@ described previously. To ensure that chunks for newly-created files are not
 evicted before they can be pinned by the orchestrator, chunks for new files
 and file updates are initially pinned after creation at all clients. The next
 time the backup algorithm runs, many of these chunks will be unpinned.
+\begin{figure}[t]
+
+  \begin{subfigure}[t]{0.5\columnwidth}
+
+    \includegraphics[width=\columnwidth]{./figures/pocketlocker/RandomSimulatorPerformanceGraph.pdf}
+
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.5\columnwidth}
+
+    \includegraphics[width=\columnwidth]{./figures/pocketlocker/FIFOSimulatorPerformanceGraph.pdf}
+
+  \end{subfigure}\\
+  \begin{subfigure}[t]{0.5\columnwidth}
+
+    \includegraphics[width=\columnwidth]{./figures/pocketlocker/LRUSimulatorPerformanceGraph.pdf}
+
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.5\columnwidth}
+
+    \includegraphics[width=\columnwidth]{./figures/pocketlocker/AccessSimulatorPerformanceGraph.pdf}
+
+  \end{subfigure}
+
+  \caption{\small \textbf{Comparison of Reclamation Algorithms.}}
+
+  \label{fig-simulation-policy}
+  
+\end{figure}
 
 \subsection{Offline Operation}
 

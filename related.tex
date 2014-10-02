@@ -3,6 +3,25 @@
 \section{Related Work}
 \label{sec-related}
 
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./figures/energyconsumption.pdf}
+  
+  \vspace*{-0.1in}
+
+  \caption{\small \textbf{PocketLocker energy consumption.}Figure illustrates the energy
+  consumption on interactive device to access files of different sizes from
+fixed devices in various types of network.}
+
+  \label{fig-evaluation-energy}
+  
+  \vspace*{0.05in}
+
+  \hrule
+
+  \vspace*{-0.2in}
+
+\end{figure*}
 Mobile devices, being relatively new, did not contribute to the design of
 prototype distributed file systems.  Early systems such as
 Coda~\cite{kistler1992disconnected} and Ficus~\cite{guy1990implementation} were
@@ -66,4 +85,5 @@ centralized design of PocketLocker also allows it to handle potential remote
 access issues.  If a file or chunks are not directly reachable from a client
 device due to firewall issues, the Orchestrator can often mediate an indirect
 relay transfer rather than simply failing.
+
 
