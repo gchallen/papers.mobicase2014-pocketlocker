@@ -23,9 +23,9 @@ storage to facilitate transfers between firewalled PSC clients.}
 
 \begin{figure}[t]
 
-  \begin{subfigure}[t]{0.48\textwidth}
+  \begin{subfigure}[t]{\columnwidth}
 
-    \includegraphics[width=\textwidth]{./figures/open.pdf}
+    \includegraphics[width=\columnwidth]{./figures/open.pdf}
 
     \caption{\small \textbf{Open.} The figure illustrates a case where the
       request is satisfied by locating $k = 3$ chunks: one in the client's
@@ -33,9 +33,9 @@ storage to facilitate transfers between firewalled PSC clients.}
 
     \label{fig-design-open}
   \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
+  \begin{subfigure}[t]{\columnwidth}
 
-    \includegraphics[width=\textwidth]{./figures/create.pdf}
+    \includegraphics[width=\columnwidth]{./figures/create.pdf}
 
     \caption{\small \textbf{Creation.} This illustrates (1) path registration,
       performed immediately by a battery-powered client; and (2) erasure coding
@@ -45,7 +45,7 @@ storage to facilitate transfers between firewalled PSC clients.}
   \end{subfigure}
   \vspace*{0.05in}
 
-  \hrule
+  %\hrule
 
   \vspace*{-0.2in}
 \end{figure}
@@ -90,6 +90,7 @@ distributed to different devices.}
 
 \label{fig-design-backup}
 
+\vspace*{-0.2in}
 \end{figure}
 PocketLocker provides example sets of configuration options for common types
 of devices. A NAS appliance would be used for backup and availability,
@@ -352,7 +353,8 @@ due to PocketLocker's focus on supporting battery-powered clients, we set $k
   large portion of their file access activity.}
 
   \label{fig-simulation-connectivity}
-
+  
+  \vspace*{-0.2in}
 \end{figure}
 \subsection{Chunk Pinning Algorithm}
 \label{sec-design-algorithm}
@@ -407,11 +409,12 @@ time the backup algorithm runs, many of these chunks will be unpinned.
 
   \label{fig-simulation-policy}
   
+  \vspace*{-0.2in}
 \end{figure}
 
 \subsection{Offline Operation}
 
-PocketLocker assumes clients are generally connected, but can supporti periods
+PocketLocker assumes clients are generally connected, but can supporting periods
 of disconnection. Disconnected clients can access any files in their file store
 or that they can reconstruct using chunks in their local chunk store. Any
 changes to the namespace, such as creations, are cached.  When the client
