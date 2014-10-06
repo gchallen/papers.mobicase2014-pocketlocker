@@ -110,9 +110,9 @@ and whether the user cared if they were able to access their PSC when it was.
 The PocketLocker system attempts to minimize its usage of the 3G network, as
 the financial and energy costs of such traffic remain significant.  Transfering
 3-4 1-MB pictures and one 3-MB video daily can consume 10 percent of a typical
-2-GB data plan at an amortized cost of \$4.~\ref{att-prices} To minimize this
-impact, files are cached locally and on the LAN, and file uploads are delayed
-if necessary to take place via WiFi.
+2-GB data plan at an amortized cost of \$4.~\ref{att-prices, verizon-prices} To
+minimize this impact, files are cached locally and on the LAN, and file uploads
+are delayed if necessary to take place via WiFi.
 
 \subsection{Creating, Modifying, and Deleting Files}
 
@@ -225,15 +225,16 @@ the opener---such as when a user opens a smartphone photo on their laptop. If
 so, the time and energy required to transfer the file to the opener should be
 minimal.
 
-\subsection{Performance}
-One key question we need to ask is whether the current mobile devices can
-handle the computation demands of encryption and encoding required in
-PocketLocker. Table~\ref{tab:coding-perf}
-compares the decoding and encoding times on the latest Nexus Tablet
-to the older generation devices.  It is clear that recent advances on smartphones
-and tablets have significantly improved the encoding and decoding times of erasure coding, making
-it a practical technology for extensive use in our PocketLocker design.
-Section~\ref{sec-experiment} gives extensive erasure-code performance data collected from hundreds of media file accesses and a variety of smartphones and tablets during our prototyped experiment.
+\subsection{Performance} One key question we need to ask is whether the current
+mobile devices can handle the computation demands of encryption and encoding
+required in PocketLocker. Table~\ref{tab:coding-perf} compares the decoding and
+encoding times on the latest Nexus Tablet to the older generation devices.  It
+is clear that recent advances on smartphones and tablets have significantly
+improved the encoding and decoding times of erasure coding, making it a
+practical technology for extensive use in our PocketLocker design.
+Section~\ref{sec-experiment} gives extensive erasure-code performance data
+collected from hundreds of media file accesses and a variety of smartphones and
+tablets during our prototyped experiment.
 
 \begin{table}[t]
 {\small
