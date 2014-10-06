@@ -144,22 +144,25 @@ interactive devices, and utilized Android VMs running PocketLocker as fixed
 nearby devices.
 
 \subsubsection{File access:\space} \label{sec-fileaccess}
-Figure~\ref{fig-evaluation-download} illustrates the time required to
-download files of different sizes with clients having to download $k$ chunks
-to reconstruct the file when connected to different networks. The \textit{On
-Device} scenario denotes the time required only to reconstruct the chunks
-locally to reconstruct the original. This is the best scenario as there is no
-download of chunks involved. In \textit{LAN Wifi}, we have a fixed device
-present on the same LAN as the interactive device. The device downloads both
-chunks from the fixed device and is the fastest compared to any other
-connection type. \textit{WAN Wifi} has fixed devices that are publicly
-accessible over the Internet to interactive devices. WAN Wifi is analogues to
-downloading files from the cloud today. \textit{Arranged Wifi} presents the
-scenario where the fixed devices are not publicly accessible and data
-transfers are done via a relay. Here, the access times to open a file when
-the chunks are downloaded on the LAN Wifi are almost 50\% faster when
-compared to WAN Wifi scenario. This result is encouraging, as we envision
-most chunk transfers happening over LAN Wifi.
+Figure~\ref{fig-evaluation-download} illustrates the time required to download
+files of different sizes with clients having to download $k$ chunks to
+reconstruct the file when connected to different networks. The \textit{On
+Device} scenario denotes the time required to reconstruct the original file
+from the chunks that are available locally on the device. This is the best
+scenario as there are no chunks downloaded from other sources. In \textit{LAN
+  Wifi}, we
+have a fixed device present on the same LAN as the interactive device. The
+device downloads both the chunks required to reconstruct the file from the fixed
+device and is the fastest compared
+to any other connection type. \textit{WAN Wifi} has fixed devices that are
+publicly accessible over the Internet to the interactive devices. WAN Wifi is
+analogous to downloading files from the cloud today. \textit{Arranged Wifi}
+presents the scenario where the fixed devices are not publicly accessible and
+data transfers are done via a relay. As seen in
+Figure~\ref{fig-evaluation-download}, the time to open a file when the
+chunks are downloaded on the LAN Wifi are almost 50\% faster when compared to
+WAN Wifi scenario. This result is encouraging, as we envision most chunk
+transfers happening over LAN Wifi.
 
 \subsubsection{Energy Consumption:\space} We used the Monsoon power
 monitor~\cite{monsoon} to measure the energy consumption for file access time
