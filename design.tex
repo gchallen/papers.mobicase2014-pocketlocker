@@ -12,6 +12,11 @@ are the output of erasure coding, the number of distinct chunks required for
 reconstruction $k$ is less than $n$, and $k$ is stored in the namespace for
 each path.
 
+PocketLocker by design relies on consumer-grade network devices for storage.
+The dispersal of file chunks to multiple devices guards against inherent
+reliability limitations of the individual devices in this storage pool. We
+expect that the number of such devices users posess will increase with time.
+
 \sloppypar{The orchestrator maintains the authoritative namespace by using a
 monotonically-increasing counter to version all namespace modifications,
 including opens, renames, updates, and deletes. It also fixes the location of
@@ -100,6 +105,13 @@ used for backup or availability, interactive and battery-powered. A desktop
 would be used for backup, interactive and wall-powered, and could or could
 not be used for availability depending on whether it was regularly shut off
 and whether the user cared if they were able to access their PSC when it was.
+
+The PocketLocker system attempts to minimize its usage of the 3G network, as
+the financial and energy costs of such traffic remain significant.  Transfering
+3-4 1-MB pictures and one 3-MB video daily can consume 10 percent of a typical
+2-GB data plan at an amortized cost of \$4.~\ref{att-prices} To minimize this
+impact, files are cached locally and on the LAN, and file uploads are delayed
+if necessary to take place via WiFi.
 
 \subsection{Creating, Modifying, and Deleting Files}
 
@@ -342,7 +354,9 @@ allows more even storage distribution over clients, and allows clients to
 make finer-granularity tradeoffs between storage and access latency by
 caching between $1$ and $k$ chunks of the file in their chunk store. However,
 due to PocketLocker's focus on supporting battery-powered clients, we set $k
-= 2$ to minimize the energy overhead of erasure decoding.
+= 2$ to minimize the energy overhead of erasure decoding. A smaller $k$ value
+also maximizes the chances of disaster recovery, as fewer chunks need be
+available from the $n$ total in order to reconstruct the original file.
 
 \begin{figure}[t]
 
@@ -414,8 +428,9 @@ time the backup algorithm runs, many of these chunks will be unpinned.
 
 \subsection{Offline Operation}
 
-PocketLocker assumes clients are generally connected, but can supporting periods
-of disconnection. Disconnected clients can access any files in their file store
+PocketLocker assumes clients are generally connected, but is designed to
+support periods where clients are disconnected from both the orchestrator and
+storage lockers.  Disconnected clients can access any files in their file store
 or that they can reconstruct using chunks in their local chunk store. Any
 changes to the namespace, such as creations, are cached.  When the client
 reconnects, it downloads namespace updates from the orchestrator and identifies
