@@ -31,7 +31,7 @@ clients.
 
 \begin{figure}[t]
   
-  \includegraphics{./figures/energysavings.pdf}
+  \includegraphics[scale=.97]{./figures/energysavings.pdf}
   
   \caption{\small \textbf{PocketLocker energy savings.} The figure
     illustrates the savings in energy when an interactive device downloads
@@ -113,6 +113,25 @@ deal of inter-user variation is also visible, and we are continuing to study
 how to better adapt PocketLocker's reclamation algorithms to the specifics of
 each users file access patterns.
 
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./figures/energyconsumption.pdf}
+  
+  \vspace*{-0.1in}
+
+  \caption{\small \textbf{PocketLocker energy consumption.}Figure illustrates the energy
+  consumption on interactive device to access files of different sizes from
+fixed devices in various types of network.}
+
+  \label{fig-evaluation-energy}
+  
+  \vspace*{0.05in}
+
+%  \hrule
+
+  \vspace*{-0.2in}
+
+\end{figure*}
 \subsection{Prototype Performance Evaluation}
 
 We evaluated the prototype of the implementation described in
@@ -123,6 +142,37 @@ In our experiments we chose $k=2$ as the number of chunks required for
 reconstruction. We used Samsung Galaxy S4 and Nexus 5 smartphones as
 interactive devices, and utilized Android VMs running PocketLocker as fixed
 nearby devices.
+
+One key question we need to ask is whether the current mobile devices can
+handle the computation demands of encryption and encoding required in
+PocketLocker. Table~\ref{tab:coding-perf}
+give a comparison of the decoding and encoding times on from the latest Galaxy S4
+device to older Galaxy Nexus Tablet device.  It is clear that recent advances on smartphones
+and tablets have significantly improved the encoding and decoding times of erasure coding, making
+it a practical technology for extensive use in our PocketLocker design.
+Section~\ref{sec-experiment} gives extensive erasure-code performance data collected from hundreds of media file accesses and a variety of smartphones and tablets during our prototyped experiment.
+
+\begin{table}[t]
+{\small
+
+\begin{tabularx}{\columnwidth}{XXXX}
+
+\textbf{Device Type} & \textbf{Encoding Rate (KB/s)} & \textbf{Decoding Rate (KB/s)}
+\\ \toprule
+GalaxyNexus & 60 & 112  \\
+NexusTablet & 140 & 305  \\
+Galaxy S3 & 119 & 312  \\
+Galaxy S4 & 130 & 188  \\
+
+\end{tabularx}
+}
+
+\caption{\small \textbf{Erasure coding micro-benchmarks:}
+Encoding and decoding rates measured from 4 device types}
+
+\label{tab:coding-perf}
+
+\end{table}
 
 \subsubsection{File access:\space} \label{sec-fileaccess}
 Figure~\ref{fig-evaluation-download} illustrates the time required to
