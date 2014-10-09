@@ -60,11 +60,10 @@ storage to facilitate transfers between firewalled PSC clients.}
 
 Clients contribute storage to the PSC which PocketLocker divides into a
 \textit{file cache}, used to store reconstructed files, and a \textit{chunk
-store}, used to store chunks. By applying updates from the orchestrator
-clients maintain a local cache of the namespace to efficiently perform path
-lookups. Clients also track what chunks for each path they have in their local
-chunk store. PocketLocker users configure several attributes when attaching
-clients:
+store}, used to store chunks. By applying updates from the orchestrator clients
+maintain a local cache of the namespace to perform path lookups. Clients also
+track what chunks for each path they have in their local chunk store.
+PocketLocker users configure several attributes when attaching clients:
 
 \begin{enumerate}
   
@@ -100,20 +99,22 @@ distributed to different devices.}
 \vspace*{-0.2in}
 \end{figure}
 PocketLocker provides example sets of configuration options for common types of
-devices. A NAS appliance would be used for backup and availability,
-non-interactive and wall-powered. A laptop would be used for backup but not for
-availability, interactive and battery-powered. A smartphone would not be used
-for backup or availability, interactive and battery-powered. A desktop would be
-used for backup, interactive and wall-powered, and may or may not be used for
-availability depending on whether it was regularly shut off and whether the
-user wished to access their PSC when it was.
+devices. A NAS appliance would be used for backup and availability and would be
+non-interactive and wall-powered. A laptop would be used for backup but not
+availability, and would be interactive and battery-powered. A smartphone would
+not be used for backup or availability, but would be interactive and
+battery-powered. A desktop would be used for backup, would be interactive and
+wall-powered, and may possibly be used for availability depending on whether it
+was regularly shut off and whether the user wished to access their PSC when it
+was.
 
 The PocketLocker system attempts to minimize its usage of the 3G network, as
-the financial and energy costs of such traffic remain significant.  Transferring
-3-4 1-MB pictures and one 3-MB video daily can consume 10 percent of a typical
-2-GB data plan at an amortized cost of \$4.~\cite{att-prices,verizon-prices}
-To minimize this impact, files are cached locally and on the LAN, and file
-uploads are delayed if necessary to take place via WiFi.
+the financial and energy costs of such traffic remain significant.
+Transferring 3-4 1-MB pictures and one 3-MB video daily can consume 10 percent
+of a typical 2-GB data plan at an amortized monthly cost of
+\$4.~\cite{att-prices,verizon-prices} To minimize this impact, files are cached
+locally and on the LAN, and file uploads are delayed if necessary to take place
+via WiFi.
 
 \subsection{Creating, Modifying, and Deleting Files}
 
