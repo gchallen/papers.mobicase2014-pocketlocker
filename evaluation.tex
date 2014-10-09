@@ -16,7 +16,7 @@ the next charging cycle.}
   \vspace*{-0.2in}
 \end{figure}
 
-We evaluate PocketLocker in two ways. First, we analyze the the file access
+We evaluate PocketLocker in two ways. First, we analyze the file access
 traces we collected on \PhoneLab{} to determine the impact of parameters
 important to PocketLocker's design. We also use the traces as inputs to a
 trace-based simulation to compare approaches to performing client storage
@@ -146,18 +146,17 @@ WAN Wifi scenario. This result is encouraging, as we envision most chunk
 transfers happening over LAN Wifi.
 
 \subsubsection{Energy Consumption:\space}We used the Monsoon power
-monitor~\cite{monsoon} to measure the average energy consumption for file access time
-for the scenarios described in Section~\ref{sec-fileaccess} obtained from five experiments.
-Figure~\ref{fig-evaluation-energy} illustrates the energy consumption on the
+monitor~\cite{monsoon} to measure the energy consumption
+for the scenarios described in Section~\ref{sec-fileaccess}.
+Figure~\ref{fig-evaluation-energy} illustrates the average energy consumption
+over five experiment runs on the
 interactive device. As expected, data transfers over the cellular network
-consumes the most amount of energy. We also noticed that the energy consumed
-for the WAN Wifi was lesser when compared to LAN Wifi. We believe this
-occurred because the smartphone was connected to an open access point for WAN
-transfers whereas the interactive device was connected to an access point
-with WPA security for LAN Wifi. Figure~\ref{fig-evaluation-energysavings}
+consumes the most amount of energy and the scenarios using the WiFi interface on
+the interactive device consume significantly lesser energy compared to the
+scenario where cellular network is used. Figure~\ref{fig-evaluation-energysavings}
 compares the energy consumption of file access when downloading two chunks
 with the energy required to access the file by downloading one chunk. The
-energy consumption of PocketLocker when accessing the file by downloading one
+energy consumption when accessing the file by downloading one
 chunk is less than the consumption to access the file by downloading both
 chunks. This is a positive result for PocketLocker as it stores only some of
 the required chunks instead of all chunks under storage pressure.
