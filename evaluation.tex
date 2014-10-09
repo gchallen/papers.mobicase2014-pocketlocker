@@ -29,20 +29,6 @@ clients.
 \subsection{Trace Analysis}
 \label{subsec-evaluation-traces}
 
-\begin{figure}[t]
-  
-  \includegraphics[scale=.97]{./figures/energysavings.pdf}
-  
-  \caption{\small \textbf{PocketLocker energy savings.} The figure
-    illustrates the savings in energy when an interactive device downloads
-  one chunk compared to downloading two chunks to access the file.}
-  
-  \label{fig-evaluation-energysavings}
-
-  \vspace*{-0.2in}
-\end{figure}
-
-
 \begin{figure*}[t]
   \centering
   \includegraphics{./figures/downloadtimes.pdf}
@@ -113,26 +99,19 @@ chunk store to absorb a large number of file accesses. A great
 deal of inter-user variation is also visible, and we are continuing to study
 how to better adapt PocketLocker's reclamation algorithms to the specifics of
 each users file access patterns.
-
-\begin{figure*}[t]
-  \centering
-  \includegraphics[width=0.8\textwidth]{./figures/energyconsumption.pdf}
+\begin{figure}[t]
   
-  \vspace*{-0.1in}
-
-  \caption{\small \textbf{PocketLocker energy consumption.}Figure illustrates the energy
-  consumption on interactive device to access files of different sizes from
-fixed devices in various types of network.}
-
-  \label{fig-evaluation-energy}
+  \includegraphics[scale=.97]{./figures/energysavings.pdf}
   
-  \vspace*{0.05in}
-
-%  \hrule
+  \caption{\small \textbf{PocketLocker energy savings.} The figure
+    illustrates the savings in energy when an interactive device downloads
+  one chunk compared to downloading two chunks to access the file.}
+  
+  \label{fig-evaluation-energysavings}
 
   \vspace*{-0.2in}
+\end{figure}
 
-\end{figure*}
 \subsection{Prototype Performance Evaluation}
 \label{subsec-performance-evaluation}
 
@@ -195,5 +174,24 @@ no limit: each user has its own PSC supported by an individual instance of an
 orchestrator.
 
 
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./figures/energyconsumption.pdf}
+  
+  \vspace*{-0.1in}
+
+  \caption{\small \textbf{PocketLocker energy consumption.}Figure illustrates the energy
+  consumption on interactive device to access files of different sizes from
+fixed devices in various types of network.}
+
+  \label{fig-evaluation-energy}
+  
+  \vspace*{0.05in}
+
+%  \hrule
+
+  \vspace*{-0.2in}
+
+\end{figure*}
 
 
