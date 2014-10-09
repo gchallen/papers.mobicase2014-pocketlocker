@@ -258,6 +258,7 @@ NexusTablet & 140 & 305  \\
 Encoding and decoding rates measured from 4 device types}
 
 \label{tab:coding-perf}
+  \vspace*{-0.2in}
 
 \end{table}
 
@@ -281,10 +282,8 @@ Second, PSC clients track local file access patterns to intelligently manage
 their local chunk store when reclaiming space. When under storage pressure,
 after emptying their reclamation list, clients can either (1) remove
 reconstructed files from their file cache or (2) remove chunks from their
-chunk store. Because erasure decoding is more efficient than erasure
-encoding, clients first remove files in their file cache such that they have
-enough chunks in their chunk store to reconstruct.
-
+chunk store. Because erasure decoding is more efficient than encoding,
+clients first remove files in their cache.
 
 At this point removing either files or chunks allows the client to make
 latency tradeoffs between different files. For example, keeping one chunk of
@@ -313,16 +312,16 @@ interact with.
 \subsection{Backup and Availability}
 \label{subsec-backup}
 
-The orchestrator both meets backup requirements and ensures availability by
-\textit{pinning} chunks at clients to ensure that $k$ chunks will always be
-available---as long as the client configured as available are reachable---and
+The orchestrator ensures backup and availability requirements by
+\textit{pinning} chunks at clients so that $k$ chunks will always be
+available---as long as the clients configured as available are reachable---and
 survive client failures. Pinning prevents clients from removing chunks during
 reclamation. PocketLocker allows users to configure their PSC to not lose any
 files older than a certain time interval (the backup window) if up to a
 certain number of clients fail (the backup threshold).
 
-Figure~\ref{fig-design-backup} shows the most common steps in the backup
-process.  A powered device receives and chunks a file originally created by a
+Figure~\ref{fig-design-backup} illustrates common steps in the backup
+process.  A powered device receives and chunks a file created by a
 mobile device (3.1).  All chunks are initially pinned by default.  Next, the
 Orchestrator orders PC 2 to request chunk 433 from PC 1 (3.2), and PC 1 to
 unpin chunk 433 after the chunk has been copied to PC 2 (3.3).  Next, PC 1
@@ -330,15 +329,15 @@ fetches and pins chunk 433 from PC 2, and PC 1 unpins chunk 433 (3.4).
 
 Backup and availability requirements can reduce the usable size of the PSC
 depending on the distribution of storage contributed by clients and how they
-are configured. For example, a single small client can limit the size of the
+are configured. A single small client can limit the size of the
 entire PSC if its storage must be used for backup. Or, a single large client
 may find its storage underutilized if it is not marked as available.
 PocketLocker estimates the capacity of the PSC at configuration time as the
 lesser of (1) the sum of all the capacity contributed by clients marked as
 available and (2) the sum of the storage contributed by the smallest backup
 clients required to meet the backup threshold. The tradeoff between client
-attributes and the PSC capacity is presented to the users when they configure
-clients and choose their backup threshold. Remaining PSC space is not unused:
+attributes and PSC capacity is presented to the users when they configure
+clients and choose backup thresholds. Remaining PSC space is not unused:
 PocketLocker uses it to improve performance by caching chunks and
 reconstructed files, and to allow users to recover deleted files and old file
 versions.
@@ -387,9 +386,9 @@ Second, $k$ determines both the chunk size---which is equal to the file size
 divided by $k$---and the overhead of erasure decoding, which increases with
 $k$. Using larger values of $k$ and creating larger numbers of smaller chunks
 allows more even storage distribution over clients, and allows clients to
-make finer-granularity tradeoffs between storage and access latency by
-caching between $1$ and $k$ chunks of the file in their chunk store. However,
-due to PocketLocker's focus on supporting battery-powered clients, we set $k
+make finer tradeoffs between storage and access latency by
+caching between $1$ and $k$ chunks of the file in their store. However,
+due to PocketLocker's focus on battery-powered clients, we set $k
 = 2$ to minimize the energy overhead of erasure decoding. A smaller $k$ value
 also maximizes the chances of disaster recovery, as fewer chunks need be
 available from the $n$ total in order to reconstruct the original file.
@@ -409,10 +408,10 @@ available from the $n$ total in order to reconstruct the original file.
 \subsection{Chunk Pinning Algorithm}
 \label{sec-design-algorithm}
 
-Periodically the orchestrator collects a list of chunks they are storing from
+Periodically the orchestrator collects a list of chunks stored from
 all PSC clients and runs a \textit{chunk pinning algorithm} to determines
 where to pin chunks to meet the user's backup and availability requirements.
-Our current placement algorithm uses a greedy approach that meets the backup
+Our placement algorithm uses a greedy approach that meets the backup
 requirements and availability requirements in separate passes. If the size of
 the PSC is constrained by the backup requirement, the availability pass
 proceeds first in order to avoid reducing capacity on clients needed for
@@ -427,8 +426,8 @@ requirement. The algorithm avoids transfers when possible by considering what
 chunks are already pinned or available in each client's store.
 
 When clients receive a list of pinned chunks from the orchestrator, they
-retrieve any chunks they are missing using the chunk request process
-described previously. To ensure that chunks for newly-created files are not
+retrieve any chunks they are missing using the chunk request process.
+To ensure that chunks for newly-created files are not
 evicted before they can be pinned by the orchestrator, chunks for new files
 and file updates are initially pinned after creation at all clients. The next
 time the backup algorithm runs, many of these chunks will be unpinned.
@@ -476,9 +475,9 @@ between updates or to rename the file.
 
 \subsection{File Metadata}
 
-Finally, to support media files that may require metadata for browsing, such
-as photo thumbnails, PocketLocker allows metadata files up to a size limit to
-be associated with files stored in the PSC. Metadata files are stored in a
+Finally, to support media files requiring metadata for browsing such
+as photo thumbnails, PocketLocker allows small metadata files to
+be associated with files in the PSC. Metadata files are stored in a
 separate part of each client's storage and retrieved during the initial chunk
 requests that follow file creation. Unlike chunks, however, metadata files
 are not reclaimed, since we assume their storage overhead is limited.

@@ -24,17 +24,16 @@ APIs to provide clients access to the files stored in the user's PSC. It also
 maintains chunk placement in the cache as directed by the orchestrator. 
 
 We chose to implement PocketLocker as a user application rather than
-integrating the service with the file system so that users are not required
-to have root privileges to install PocketLocker on their devices and
-PocketLocker can be distributed via the Android Play Store.~\cite{playstore}
-On both interactive and non-interactive devices, the PocketLocker service
-maintains the local file and chunk cache according to the placement
-directions calculated by the orchestrator. On fixed devices, PocketLocker
-additionally offers a pair of network services. The first, the discovery
-service, responds to chunk requests that are issued by interactive devices on
-the same local network. The second, the HTTP service, facilitates the
-transfer of newly created files and chunks among the user's PSC devices as
-per the chunk placement scheme.
+integrating the service with the file system so that users do not need root
+privileges to install PocketLocker on their devices and PocketLocker can be
+distributed via the Android Play Store.~\cite{playstore} On both interactive
+and non-interactive devices, the PocketLocker service maintains the local file
+and chunk cache according to the placement directions calculated by the
+orchestrator. On fixed devices, PocketLocker also offers two network services.
+The discovery service responds to chunk requests that are issued by interactive
+devices on the same local network. The HTTP service facilitates the transfer of
+newly created files and chunks among the user's PSC devices as per the chunk
+placement scheme.
 
 PocketLocker exposes its APIs both to the orchestrator, to receive local cache
 maintenance directions, and to local client applications, to provide access to

@@ -21,7 +21,7 @@ traces we collected on \PhoneLab{} to determine the impact of parameters
 important to PocketLocker's design. We also use the traces as inputs to a
 trace-based simulation to compare approaches to performing client storage
 reclamation. Second, we perform detailed measurements of our PocketLocker
-prototype engaging in the various types of file accesses described previously.
+prototype engaging in the types of file accesses described previously.
 Our results indicate how utilizing nearby clients can improve performance, and
 also how PocketLocker enables energy-efficient operation on battery-powered
 clients.
@@ -84,7 +84,7 @@ window, PocketLocker can enable energy-neutral transfers and reduce overhead
 on battery-powered clients.
 
 
-Finally, we built a simple trace-based simulator to experiment with different
+Finally, we built a trace-based simulator to experiment with different
 policies for managing the mobile client chunk store. We configured each PSC
 client smartphone with 1~GB of storage, considerably less than the amount of
 file accesses we observed during our one-month experiment, and managed the
@@ -96,7 +96,7 @@ previously based on the smartphone's connectivity at that moment.
 Surprisingly, we did not observe any large performance differences between
 these algorithms, although they were able to manage the local
 chunk store to absorb a large number of file accesses. A great
-deal of inter-user variation is also visible, and we are continuing to study
+deal of inter-user variation is visible, and we are continuing to study
 how to better adapt PocketLocker's reclamation algorithms to the specifics of
 each users file access patterns.
 \begin{figure}[t]
