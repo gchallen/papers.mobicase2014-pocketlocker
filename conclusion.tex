@@ -4,11 +4,21 @@
 \label{sec-conclusion}
 
 PocketLocker addresses an emerging need of mobile systems by crafting a
-personal storage cloud from multiple personal devices.  It targets storing
-rarely changing files. An intelligent orchestrator arranges storage to maximize
-usage of devices of different sizes and minimize network costs.  PocketLocker
-is free and uses no additional devices. System storage and backup policies are
-based upon data gleaned from an extended testing using 100 smartphones.
+personal storage cloud from multiple personal devices.  While mobile devices
+remain storage constrained, consumers today typically have copious unused
+storage available in the form of desktop computers and external hard drives.
+Previous cloud-based solutions have not been designed to target this space.
+PocketLocker does, in a manner sensitive to both the reliability limitations of
+consumer equipment and the energy limitations and communication costs of mobile
+devices. It targets rarely changing files such as photos and videos, a typical
+product of mobile devices.  The system distributes these files automatically
+and redundantly amongst the devices of a user's personal cloud. The storage
+devices themselves need not be homogeneous in size or type.  An intelligent
+orchestrator arranges storage in a manner that maximizes usage of these
+differing devices, maximizes redundancy, and minimizes network costs.
+PocketLocker is free and uses no additional devices.  System storage and backup
+policies are tuned based upon data gleaned from an extended testing period
+using 100 smartphones.
 
 Looking ahead, we envision incorporating energy minimization in the system's
 chunk placement algorithm---presently, it considers network connectivity and
@@ -18,10 +28,11 @@ considers network and energy conditions dynamically.
 
 \section*{Acknowledgments}
 
-We are grateful to the support staff of the \PhoneLab{} team at the University
-at Buffalo for assisting us with deploying the platform changes needed to
-collect detailed file usage information. \PhoneLab{} administrator Maulik Dave
-was particularly helpful in setting up our experiments and providing
-information about the testbed.
+The authors would like to thank the anonymous UbiComp reviewers for their
+constructive feedback. They are also grateful to the support staff of the
+\PhoneLab{} team at the University at Buffalo for assistance with deploying the
+platform changes needed to collect detailed file usage information. \PhoneLab{}
+administrator Maulik Dave was particularly helpful in setting up our
+experiments and providing information about the testbed.
 
 
