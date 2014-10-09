@@ -2,6 +2,15 @@
 
 \section{Evaluation}
 \label{sec-evaluation}
+We evaluate PocketLocker in two ways. First, we analyze the file access
+traces we collected on \PhoneLab{} to determine the impact of parameters
+important to PocketLocker's design. We also use the traces as inputs to a
+trace-based simulation to compare approaches to performing client storage
+reclamation. Second, we perform detailed measurements of our PocketLocker
+prototype engaging in the types of file accesses described previously.
+Our results indicate how utilizing nearby clients can improve performance, and
+also how PocketLocker enables energy-efficient operation on battery-powered
+clients.
 
 \begin{figure}[t]
   \includegraphics{./figures/pocketlocker/BatteryLengthDistributionGraph.pdf}
@@ -13,43 +22,10 @@ the next charging cycle.}
   
   \label{fig-simulation-battery}
 
-  \vspace*{-0.2in}
+  \vspace*{-0.3in}
 \end{figure}
-
-We evaluate PocketLocker in two ways. First, we analyze the file access
-traces we collected on \PhoneLab{} to determine the impact of parameters
-important to PocketLocker's design. We also use the traces as inputs to a
-trace-based simulation to compare approaches to performing client storage
-reclamation. Second, we perform detailed measurements of our PocketLocker
-prototype engaging in the types of file accesses described previously.
-Our results indicate how utilizing nearby clients can improve performance, and
-also how PocketLocker enables energy-efficient operation on battery-powered
-clients.
-
 \subsection{Trace Analysis}
 \label{subsec-evaluation-traces}
-
-\begin{figure*}[t]
-  \centering
-  \includegraphics{./figures/downloadtimes.pdf}
-  
-  \vspace*{-0.1in}
-
-  \caption{\small \textbf{PocketLocker file access times.} Figure
-    illustrates the
-    times required to access files of various sizes by PSC in different
-    types of
-  connectivity.}
-
-  \label{fig-evaluation-download}
-  
-  \vspace*{0.05in}
-
-  %\hrule
-
-  \vspace*{-0.2in}
-
-\end{figure*}
 
 PocketLocker relies on nearby clients to improve performance of file accesses.
 In the best case, other PSC clients are located on the same LAN. To determine
@@ -71,16 +47,16 @@ nature of smartphones.}. Figure~\ref{fig-simulation-connectivity} shows the
 results. For around half of the users, even without a local cache half of the
 file accesses could be served by two clients placed at their most used Wifi
 networks. Only in the remaining half of accesses, where files are not locatable
-on another PSC client on the lan, must a device go outside the network.
+on another PSC client on the LAN, must a device go outside the network.
 
-We were also interested in how many file creations could be offloaded to
-powered clients by delaying transfer until the user plugged their smartphone
+We were also interested in how many file creations could be offloaded by delaying
+transfer until the user plugged their smartphone
 in to charge. Figure~\ref{fig-simulation-battery} shows per-user
 distributions of the of time between file creations and the next charging
 session. For all users, the median is under 10~hours with worst-case maximums
 approaching a day. Overall, the results suggest that by delaying the initial
 file transfer required during creation for a portion of the user's backup
-window, PocketLocker can enable energy-neutral transfers and reduce overhead
+window, PocketLocker can enable energy-neutral transfers
 on battery-powered clients.
 
 
@@ -124,6 +100,25 @@ reconstruction. We used Samsung Galaxy S4 and Nexus 5 smartphones as
 interactive devices, and utilized Android VMs running PocketLocker as fixed
 nearby devices.
 
+\begin{figure*}[t]
+  \centering
+  \includegraphics{./figures/downloadtimes.pdf}
+  
+  \vspace*{-0.1in}
+
+  \caption{\small \textbf{PocketLocker file open times.} Figure
+    illustrates the time to open files by the interactive device when
+      connected to different networks.}
+
+  \label{fig-evaluation-download}
+  
+  \vspace*{0.05in}
+
+  %\hrule
+
+  \vspace*{-0.2in}
+
+\end{figure*}
 \subsubsection{File access:\space} \label{sec-fileaccess}
 Figure~\ref{fig-evaluation-download} illustrates the time required to download
 files of different sizes with clients having to download $k$ chunks to
@@ -165,14 +160,6 @@ Energy consumption by smartphones when pushing recently created file chunks to
 remote storage does not pose a similar issue.  The System deliberately dictates
 that devices wait until plugged in before they commence upload.
 
-\subsection{Scalability:\space} The purpose of PocketLocker is to furnish a
-mobile device-aware personal storage subsystem. Each user typically will have
-on the order of tens of devices connected to the system, which can be easily
-coordinated by the user's orchestrator. Thus, growth of the userbase encounters
-no limit: each user has its own PSC supported by an individual instance of an
-orchestrator.
-
-
 \begin{figure*}[t]
   \centering
   \includegraphics[width=0.8\textwidth]{./figures/energyconsumption.pdf}
@@ -180,8 +167,8 @@ orchestrator.
   \vspace*{-0.1in}
 
   \caption{\small \textbf{PocketLocker energy consumption.}Figure illustrates the energy
-  consumption on interactive device to access files of different sizes from
-fixed devices in various types of network.}
+  consumption on interactive device to open files of different sizes when
+    connected to different networks.}
 
   \label{fig-evaluation-energy}
   
