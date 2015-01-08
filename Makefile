@@ -1,4 +1,6 @@
-START = noxxxnote draft blue
+START = noxxxnote nodraft blue
+PYTEX = $(shell pwd)/pytex/
+CLASS = $(PYTEX)/cls/IEEEtran.cls
 END = missing
 
 all: paper ABSTRACT
